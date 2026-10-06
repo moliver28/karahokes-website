@@ -1,0 +1,239 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+  --font-serif: var(--font-serif);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+}
+
+:root {
+  /* Warm, calm, healing palette: sage/forest green primary,
+     warm cream backgrounds, muted terracotta accent. */
+  --radius: 0.75rem;
+
+  /* Warm cream background */
+  --background: oklch(0.98 0.012 80);
+  /* Deep warm charcoal */
+  --foreground: oklch(0.22 0.02 60);
+
+  /* White-ish warm card */
+  --card: oklch(0.995 0.008 80);
+  --card-foreground: oklch(0.22 0.02 60);
+
+  --popover: oklch(0.995 0.008 80);
+  --popover-foreground: oklch(0.22 0.02 60);
+
+  /* Deep sage / forest green primary */
+  --primary: oklch(0.42 0.06 145);
+  --primary-foreground: oklch(0.98 0.012 80);
+
+  /* Soft warm muted surface */
+  --secondary: oklch(0.94 0.018 80);
+  --secondary-foreground: oklch(0.28 0.02 60);
+
+  --muted: oklch(0.95 0.015 85);
+  --muted-foreground: oklch(0.45 0.025 130);
+
+  /* Muted terracotta / clay accent. Darkened from 0.68 to 0.50 so accent
+     text (small uppercase eyebrows, card badges) clears 4.5:1 on cream
+     cards per WCAG 1.4.3 while staying visibly terracotta. */
+  --accent: oklch(0.5 0.11 45);
+  --accent-foreground: oklch(0.995 0.008 80);
+
+  /* Deepened from 0.55 so destructive TEXT (form errors, quick-exit label)
+     clears 4.5:1 on its tinted backgrounds per WCAG 1.4.3. */
+  --destructive: oklch(0.46 0.19 28);
+
+  /* Warm soft border */
+  --border: oklch(0.92 0.015 75);
+  /* Form-control boundary: darkened to ~3:1 against cards so every text
+     field, select, and checkbox border is identifiable on its own (WCAG
+     1.4.11). --border stays light: it separates large decorative areas,
+     which have no 3:1 requirement. */
+  --input: oklch(0.58 0.018 75);
+  --ring: oklch(0.55 0.07 145);
+}
+
+.dark {
+  /* Soft warm dark, not pitch black: more of a deep forest night */
+  --background: oklch(0.18 0.015 145);
+  --foreground: oklch(0.95 0.012 80);
+
+  --card: oklch(0.22 0.018 145);
+  --card-foreground: oklch(0.95 0.012 80);
+
+  --popover: oklch(0.22 0.018 145);
+  --popover-foreground: oklch(0.95 0.012 80);
+
+  --primary: oklch(0.7 0.08 145);
+  --primary-foreground: oklch(0.18 0.015 145);
+
+  --secondary: oklch(0.28 0.02 145);
+  --secondary-foreground: oklch(0.95 0.012 80);
+
+  --muted: oklch(0.28 0.02 145);
+  --muted-foreground: oklch(0.72 0.02 100);
+
+  --accent: oklch(0.65 0.1 45);
+  --accent-foreground: oklch(0.18 0.015 145);
+
+  --destructive: oklch(0.65 0.2 25);
+
+  --border: oklch(0.32 0.018 145);
+  --input: oklch(0.32 0.018 145);
+  --ring: oklch(0.6 0.08 145);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  html {
+    /* Anchored sections must never hide their top edge under the sticky
+       header. Header is h-16 (4rem) on small screens, md:h-20 (5rem) above
+       md; we add breathing room on top of that. */
+    scroll-padding-top: 5.5rem;
+  }
+  @media (min-width: 768px) {
+    html {
+      scroll-padding-top: 6.5rem;
+    }
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth;
+    }
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "ss01", "cv01";
+  }
+  ::selection {
+    background: oklch(0.68 0.09 45 / 0.25);
+    color: oklch(0.22 0.02 60);
+  }
+  /* Chrome/Safari autofill paints inputs pale yellow with !important inline
+     styles. This is the standard override: an inset shadow in the card
+     color plus foreground text keeps a filled email field on-palette. */
+  input:-webkit-autofill,
+  input:-webkit-autofill:hover,
+  input:-webkit-autofill:focus,
+  textarea:-webkit-autofill,
+  textarea:-webkit-autofill:hover,
+  textarea:-webkit-autofill:focus,
+  select:-webkit-autofill,
+  select:-webkit-autofill:hover,
+  select:-webkit-autofill:focus {
+    -webkit-box-shadow: 0 0 0 1000px oklch(0.995 0.008 80) inset;
+    -webkit-text-fill-color: oklch(0.22 0.02 60);
+    caret-color: oklch(0.22 0.02 60);
+    transition: background-color 9999s ease-in-out 0s;
+  }
+  /* Warm, unobtrusive scrollbar for the page itself */
+  html {
+    scrollbar-width: thin;
+    scrollbar-color: oklch(0.82 0.03 100) transparent;
+  }
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-thumb {
+    background-color: oklch(0.82 0.03 100);
+    border-radius: 9999px;
+    border: 2px solid transparent;
+    background-clip: padding-box;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: oklch(0.72 0.04 100);
+    background-clip: padding-box;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+}
+
+@layer utilities {
+  .font-serif {
+    font-family: var(--font-serif), ui-serif, Georgia, "Times New Roman", serif;
+  }
+  .text-balance {
+    text-wrap: balance;
+  }
+  /* Soft custom scrollbar for long lists */
+  .scroll-warm {
+    scrollbar-width: thin;
+    scrollbar-color: oklch(0.8 0.03 100) transparent;
+  }
+  .scroll-warm::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  .scroll-warm::-webkit-scrollbar-thumb {
+    background-color: oklch(0.8 0.03 100);
+    border-radius: 9999px;
+  }
+  .scroll-warm::-webkit-scrollbar-track {
+    background: transparent;
+  }
+}
+
+/* Print layout: people in unsafe situations are often told to keep a printed
+   copy of crisis resources somewhere safe, so printing (or saving as PDF)
+   produces exactly one clean sheet: the crisis numbers and the practice's
+   contact details. The .print-sheet block (print-crisis-sheet.tsx) is hidden
+   on screen; on paper it becomes the only visible content. display:none
+   (not visibility) is what removes the page's blank print pages. */
+@media print {
+  @page {
+    margin: 1.5cm;
+  }
+  html,
+  body {
+    background: #ffffff !important;
+  }
+  body > div {
+    display: block !important;
+    min-height: 0 !important;
+  }
+  body > div > *:not(.print-sheet) {
+    display: none !important;
+  }
+  .print-sheet {
+    display: block !important;
+    position: static !important;
+    background: #ffffff !important;
+    padding: 0 !important;
+    box-shadow: none !important;
+  }
+  .print-sheet * {
+    color: #000000 !important;
+    background: transparent !important;
+  }
+}
+/* a11y contrast pass */
