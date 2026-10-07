@@ -2,42 +2,22 @@
 
 Launch runbook for the practice site: the domain karahokes.com is registered at Namecheap, the site is published to GitHub Pages by the `.github/workflows/deploy.yml` workflow, and Cloudflare provides the appointment-form backend (Worker + D1 + Email Routing). The form backend has its own deploy runbook in [worker/README.md](worker/README.md); this file covers DNS records, the one-time Cloudflare setup, verification, and the certificate timeline.
 
-## GitHub Pages DNS records (apply at Namecheap > Advanced DNS)
+## DNS records (Cloudflare zone)
 
-These five records point the domain at GitHub Pages. They serve both names at once: the `www` CNAME makes **https://www.karahokes.com** the live site, and the four apex A records make **karahokes.com** redirect to it.
+DNS for karahokes.com lives in the Cloudflare zone `karahokes.com` under a **full Cloudflare setup**: the zone's nameservers are `macy.ns.cloudflare.com` and `matteo.ns.cloudflare.com`. The domain remains registered at Namecheap, but records are not edited there.
 
-| Type  | Host | Value                | TTL       |
-|-------|------|----------------------|-----------|
-| A     | @    | 185.199.108.153      | Automatic |
-| A     | @    | 185.199.109.153      | Automatic |
-| A     | @    | 185.199.110.153      | Automatic |
-| A     | @    | 185.199.111.153      | Automatic |
-| CNAME | www  | moliver28.github.io. | Automatic |
+The records that matter to the site: four apex A records pointing at GitHub Pages (185.199.108.153 through 185.199.111.153) and a `www` CNAME to `moliver28.github.io`. Together they make **https://www.karahokes.com** the live site, with **karahokes.com** redirecting to it. The Email Routing records (MX, SPF, DKIM) are managed by Cloudflare and locked — they exist because Email Routing is enabled on the zone and cannot be edited at a registrar.
 
-**CRITICAL — delete Namecheap's default parking records before adding these.** Namecheap ships every new domain with a **URL Redirect Record on `@`** (to a parking page) and a **CNAME on `www`** (to its parking host). DELETE BOTH first. Leftover records conflict with the Pages records: the apex keeps answering with the redirect and DNS resolution becomes unpredictable until they are gone.
+## One-time Cloudflare setup (human, dashboard — completed)
 
-## Cloudflare Email Routing records (apply at Namecheap, values from the Cloudflare dashboard)
-
-After Email Routing is enabled (next section), the Cloudflare dashboard's Email Routing page lists the exact records the zone needs. Apply them at Namecheap > Advanced DNS, filling every placeholder from what the dashboard reports — do not guess or hand-write these values.
-
-| Type | Host                   | Value                                             | Notes                        |
-|------|------------------------|---------------------------------------------------|------------------------------|
-| MX   | @                      | route1.mx.cloudflare.net                          | priority per CF dashboard (fill from CF dashboard) |
-| MX   | @                      | route2.mx.cloudflare.net                          | priority per CF dashboard (fill from CF dashboard) |
-| MX   | @                      | route3.mx.cloudflare.net                          | priority per CF dashboard (fill from CF dashboard) |
-| TXT  | @                      | "v=spf1 include:_spf.mx.cloudflare.net ~all"      | SPF — confirm exact string in the dashboard (fill from CF dashboard) |
-| TXT  | (DKIM name CF reports) | (DKIM value CF reports)                           | one or more DKIM records — copy name and value exactly (fill from CF dashboard) |
-
-## One-time Cloudflare setup (human, dashboard)
-
-These steps need a human in the Cloudflare dashboard; Wrangler and the deploy workflow cannot do them. In order:
+These steps needed a human in the Cloudflare dashboard; Wrangler and the deploy workflow cannot do them. All are done:
 
 1. Create a free Cloudflare account at dash.cloudflare.com (free plan, no card required).
-2. Add karahokes.com to the account as a **PARTIAL (CNAME) setup** zone, keeping Namecheap's nameservers — the zone stays DNS-hosted at Namecheap.
+2. Add karahokes.com to the account as a **full-setup zone** — Cloudflare nameservers (`macy.ns.cloudflare.com`, `matteo.ns.cloudflare.com`) became authoritative for the domain.
 3. Enable Email Routing on the zone.
 4. Add the destination address karahokes@gmail.com, then **click the confirmation email** Gmail receives (check the spam folder). Mail does not route to the practice inbox until that click happens.
 5. On this machine, run `npx wrangler login` once (browser authorization; needed for the form-backend deploys — see worker/README.md).
-6. Apply the GitHub Pages DNS records and the Email Routing DNS records at Namecheap > Advanced DNS (tables above).
+6. The GitHub Pages DNS records live in the Cloudflare zone (see the DNS records section above).
 
 ## Verification (agent-run)
 
@@ -54,6 +34,8 @@ Poll DNS with PowerShell's `Resolve-DnsName` every 15 minutes, bounded at 72 hou
 
 GitHub provisions the custom-domain certificate for www.karahokes.com only after DNS verification passes. Provisioning takes anywhere from minutes to 72 hours. The "Enforce HTTPS" setting (`https_enforced`) must be switched on ONLY after the certificate reaches the approved state in the Pages settings — flipping it earlier can block certificate provisioning and leave the domain stuck without HTTPS.
 
+As observed on this launch (2026-10-07): after DNS went green and the Pages config settled (`build_type=workflow`), the Let's Encrypt leaf certificate was issued at 02:14 UTC (SANs covering both karahokes.com and www.karahokes.com) and the Pages API first reported `https_certificate.state=approved` at 03:27 UTC — about an hour after the certificate itself was already valid, so the API state can lag the live certificate. HTTPS enforcement (`https_enforced=true`) was on at that same observation, and all four paths verified: http://karahokes.com, http://www.karahokes.com, and https://karahokes.com each 301 to https://www.karahokes.com/, which serves 200 over TLS from Let's Encrypt. The certificate renews automatically.
+
 ## Form backend (Cloudflare)
 
 The appointment form's backend is a Cloudflare Worker with a D1 database and an Email Routing notification; its deploy runbook, bindings, and behavior are documented in [worker/README.md](worker/README.md). That file is the authority — this section is only a pointer plus the data notes.
@@ -62,4 +44,4 @@ D1 data notes: `consult_request` rows are retained as practice records; there is
 
 ## If Email Routing is unavailable
 
-If Cloudflare requires full nameserver setup for the zone (which makes Email Routing unavailable under the partial setup), the documented fallback is the Resend-based swap in the "Resend fallback (only if triggered)" section of [worker/README.md](worker/README.md). Whether to trigger that fallback is a go/no-go decision made during the DNS setup itself, not in this document.
+If Email Routing ever becomes unavailable (for example, if the zone setup changes), the documented fallback is the Resend-based swap in the "Resend fallback (only if triggered)" section of [worker/README.md](worker/README.md). Whether to trigger that fallback is a go/no-go decision for whoever maintains the site, not something to decide in this document.
