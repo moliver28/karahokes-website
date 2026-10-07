@@ -90,6 +90,21 @@ API using a `RESEND_API_KEY` wrangler secret (`npx wrangler secret put`),
 plus two TXT records at the registrar. That is a later, explicit decision —
 this Worker ships without it.
 
+## Data retention
+
+Submissions live in two places: D1 rows on Cloudflare, and the notification
+emails in the practice Gmail inbox. There is no automatic purge — the
+practice deletes on its own schedule. To drop rows older than 30 days:
+
+```
+npx wrangler d1 execute karahokes_form --remote --command "DELETE FROM consult_request WHERE created_at < date('now','-30 days')"
+```
+
+The pipeline is designed to carry no personal health information (the form's
+note field and its copy exist for scheduling logistics only) and makes no
+compliance claim — retention policy and any regulatory judgment belong to
+the practice and its professional counsel.
+
 ## Local verification
 
 `npx wrangler dev` (local mode, no login needed), then POST/GET against

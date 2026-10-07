@@ -42,6 +42,14 @@ The appointment form's backend is a Cloudflare Worker with a D1 database and an 
 
 D1 data notes: `consult_request` rows are retained as practice records; there is no automatic purge. The QA process submits exactly ONE test row through the live form and deletes that row after the live check (test-row cleanup), so afterward the table holds only real submissions. Capacity is a non-issue: the D1 free tier allows 5M row reads and 100k row writes per day, far above this practice's needs.
 
+Data retention: submissions live in D1 (Cloudflare) and the notification emails in the practice Gmail inbox. The practice purges on its own schedule — to drop rows older than 30 days:
+
+```
+npx wrangler d1 execute karahokes_form --remote --command "DELETE FROM consult_request WHERE created_at < date('now','-30 days')"
+```
+
+The pipeline is designed to carry no personal health information and makes no compliance claim; retention and regulatory judgment belong to the practice and its professional counsel.
+
 ## If Email Routing is unavailable
 
 If Email Routing ever becomes unavailable (for example, if the zone setup changes), the documented fallback is the Resend-based swap in the "Resend fallback (only if triggered)" section of [worker/README.md](worker/README.md). Whether to trigger that fallback is a go/no-go decision for whoever maintains the site, not something to decide in this document.

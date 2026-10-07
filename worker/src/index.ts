@@ -71,7 +71,10 @@ const ConsultSchema = z.object({
       "rather-not-say",
     ])
     .optional(),
-  reason: z.string().max(1000, "Please keep this under 1000 characters.").optional(),
+  // Deliberately not a clinical field: it exists for scheduling logistics
+  // only, and its copy asks visitors to keep health details out. See the
+  // mirrored validation in src/components/consult-form.tsx.
+  message: z.string().max(1000, "Please keep this under 1000 characters.").optional(),
   company: z.string().optional(),
   consent: z.literal(true, {
     message: "Please acknowledge the consent statement to continue.",
@@ -156,15 +159,15 @@ async function handlePost(request: Request, env: Env): Promise<Response> {
   const phone = data.phone?.trim() || null;
   const preferredContact = data.preferredContact;
   const availability = data.availability?.trim() || null;
-  const reason = data.reason?.trim() || null;
+  const message = data.message?.trim() || null;
   const source = data.source || null;
 
   const id = crypto.randomUUID();
   try {
     await env.DB.prepare(
-      "INSERT INTO consult_request (id, name, email, phone, preferred_contact, availability, reason, source, consent, status) VALUES (?1, ?2, ?3, ?4, ?5, ?6, ?7, ?8, ?9, 'new')",
+      "INSERT INTO consult_request (id, name, email, phone, preferred_contact, availability, message, source, consent, status) VALUES (?1, ?2, ?3, ?4, ?5, ?6, ?7, ?8, ?9, 'new')",
     )
-      .bind(id, name, email, phone, preferredContact, availability, reason, source, 1)
+      .bind(id, name, email, phone, preferredContact, availability, message, source, 1)
       .run();
   } catch (err) {
     console.error("[consult] failed to persist request", err);
@@ -194,8 +197,8 @@ async function handlePost(request: Request, env: Env): Promise<Response> {
         `Availability: ${availability ?? "Not provided"}`,
         `How they heard about the practice: ${source ?? "Not provided"}`,
         "",
-        "What brings them in:",
-        reason ?? "(not provided)",
+        "Their note:",
+        message ?? "(not provided)",
       ].join("\n"),
     });
     emailQueued = true;

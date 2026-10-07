@@ -5,7 +5,7 @@ CREATE TABLE consult_request (
   phone TEXT,
   preferred_contact TEXT NOT NULL,
   availability TEXT,
-  reason TEXT,
+  message TEXT,
   source TEXT,
   consent INTEGER NOT NULL,
   status TEXT NOT NULL DEFAULT 'new',

@@ -47,7 +47,10 @@ const FormSchema = z.object({
       "rather-not-say",
     ])
     .optional(),
-  reason: z.string().max(1000, "Please keep this under 1000 characters.").optional(),
+  // Deliberately not a clinical field: it exists for scheduling logistics
+  // only, and its copy asks visitors to keep health details out. See the
+  // mirrored validation in worker/src/index.ts.
+  message: z.string().max(1000, "Please keep this under 1000 characters.").optional(),
   // Honeypot: real people never see or fill this (it sits off-screen and is
   // skipped by keyboard and screen readers). It exists so bots that fill
   // every input announce themselves. The server silently drops submissions
@@ -99,16 +102,16 @@ export function ConsultForm() {
       preferredContact: "email",
       availability: "",
       source: undefined,
-      reason: "",
+      message: "",
       company: "",
       consent: false as unknown as true,
     },
     mode: "onTouched",
   });
 
-  // Subscribe to the reason field so the character counter updates as the
+  // Subscribe to the message field so the character counter updates as the
   // visitor types (RHF does not re-render field render-props on input).
-  const reasonLength = (form.watch("reason") ?? "").length;
+  const messageLength = (form.watch("message") ?? "").length;
 
   async function onSubmit(values: FormValues) {
     setSubmitting(true);
@@ -137,7 +140,7 @@ export function ConsultForm() {
         preferredContact: "email",
         availability: "",
         source: undefined,
-        reason: "",
+        message: "",
         consent: false as unknown as true,
       });
     } catch (err) {
@@ -328,28 +331,29 @@ export function ConsultForm() {
 
         <FormField
           control={form.control}
-          name="reason"
+          name="message"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>What brings you in? (optional)</FormLabel>
+              <FormLabel>
+                Anything you&apos;d like us to know before scheduling? (optional)
+              </FormLabel>
               <FormControl>
                 <Textarea
                   rows={4}
                   maxLength={1000}
-                  placeholder="Share as much or as little as feels right. We'll go deeper together."
+                  placeholder="Scheduling details work best here. Please do not include medical or personal health information."
                   {...field}
                 />
               </FormControl>
               <div className="flex items-start justify-between gap-4">
                 <FormDescription>
-                  Anything you share here is confidential. You don't have to
-                  write more than a sentence.
+                  A sentence is plenty, and skipping it changes nothing.
                 </FormDescription>
                 <span
                   className="shrink-0 text-xs tabular-nums text-muted-foreground"
                   aria-live="polite"
                 >
-                  {reasonLength} / 1000
+                  {messageLength} / 1000
                 </span>
               </div>
               <FormMessage />
@@ -407,6 +411,17 @@ export function ConsultForm() {
             </FormItem>
           )}
         />
+
+        {/* PHI boundary: this form feeds an email inbox and a database that
+            are not built for health information, so the request itself stays
+            free of it. The phone line and 988 are the right channels for
+            anything clinical or urgent. */}
+        <p className="rounded-lg border border-border/70 bg-secondary/40 px-4 py-3 text-sm leading-relaxed text-muted-foreground">
+          This form is not for medical or crisis information. Please don&apos;t
+          include personal health details here — if you&apos;d like to talk
+          something through, call {SITE.phoneDisplay} instead. If you are in
+          crisis, call or text 988.
+        </p>
 
         <div className="flex flex-col gap-3 pt-1 sm:flex-row sm:items-center sm:justify-between">
           <p className="max-w-xs text-xs leading-relaxed text-muted-foreground">
