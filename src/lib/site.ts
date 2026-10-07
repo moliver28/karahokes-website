@@ -42,8 +42,8 @@ export const SITE = {
   consultMinutes: 15,
   vcardPath: "/dr-kara-hokes.vcf",
   // Where the appointment form POSTs (the Cloudflare Worker backend in
-  // worker/). PLACEHOLDER is swapped for the real subdomain at deploy time.
-  formEndpoint: "https://karahokes-form.PLACEHOLDER.workers.dev",
+  // worker/, deployed 2026-10-07).
+  formEndpoint: "https://karahokes-form.karahokes.workers.dev",
   psychologyToday:
     "https://www.psychologytoday.com/us/therapists/kara-hokes-tacoma-wa/1797162",
   // Practice-provided photographs (supplied directly by the client, so they
