@@ -5,11 +5,11 @@ import { ArrowDown } from "lucide-react";
 
 /**
  * Mobile-only companion to the back-to-top control: taps the visitor down
- * one section at a time. The target is simply the next section whose top
- * edge sits below the viewport top, and the button hides once the page has
- * nothing left below (back-to-top takes over there). A real anchor link is
- * used on purpose, so the sticky-header scroll padding and the
- * reduced-motion rules in globals.css apply unchanged.
+ * one section at a time. The target is the first section whose top edge
+ * sits below the current anchor position, and the button hides once the
+ * page has nothing left below (back-to-top takes over there). A real
+ * anchor link is used on purpose, so the sticky-header scroll padding and
+ * the reduced-motion rules in globals.css apply unchanged.
  */
 export function NextSectionButton() {
   const [nextId, setNextId] = React.useState<string | null>(null);
@@ -18,9 +18,15 @@ export function NextSectionButton() {
     let frame = 0;
     const update = () => {
       frame = 0;
+      // When the visitor is anchored at a section, its top edge rests
+      // exactly scroll-padding-top below the viewport top — the old fixed
+      // 4px threshold matched it, so the button kept targeting the section
+      // already on screen. Clearing the padding skips the current section.
+      const doc = document.documentElement;
+      const padding = parseFloat(getComputedStyle(doc).scrollPaddingTop) || 88;
       const next = Array.from(
         document.querySelectorAll<HTMLElement>("main section[id]"),
-      ).find((section) => section.getBoundingClientRect().top > 4);
+      ).find((section) => section.getBoundingClientRect().top > padding + 1);
       setNextId(next ? next.id : null);
     };
     const onScroll = () => {
