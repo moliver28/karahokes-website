@@ -1,6 +1,7 @@
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { BackToTop } from "@/components/back-to-top";
+import { NextSectionButton } from "@/components/next-section-button";
 import { PrintCrisisSheet } from "@/components/print-crisis-sheet";
 import { Hero } from "@/components/sections/hero";
 import { About } from "@/components/sections/about";
@@ -153,6 +154,7 @@ export default function Home() {
 
       <SiteFooter />
       <BackToTop />
+      <NextSectionButton />
 
       {/* Hidden on screen; becomes the only visible content when printed. */}
       <PrintCrisisSheet />
