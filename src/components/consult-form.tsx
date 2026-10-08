@@ -132,6 +132,13 @@ export function ConsultForm() {
   // visitor types (RHF does not re-render field render-props on input).
   const messageLength = (form.watch("message") ?? "").length;
 
+  // The phone field becomes mandatory the moment the visitor asks for a
+  // call or a text, so it signals that immediately — before a failed
+  // submit has to say so (mirror of the superRefine rule in FormSchema).
+  const preferredContact = form.watch("preferredContact");
+  const phoneRequired =
+    preferredContact === "phone" || preferredContact === "text";
+
   async function onSubmit(values: FormValues) {
     setSubmitting(true);
     try {
@@ -252,12 +259,20 @@ export function ConsultForm() {
             name="phone"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Phone number</FormLabel>
+                <FormLabel>
+                  Phone number{" "}
+                  {phoneRequired && (
+                    <span aria-hidden="true" className="text-destructive">
+                      *
+                    </span>
+                  )}
+                </FormLabel>
                 <FormControl>
                   <Input
                     type="tel"
                     autoComplete="tel"
                     placeholder="(555) 123-4567"
+                    aria-required={phoneRequired || undefined}
                     {...field}
                   />
                 </FormControl>
@@ -426,6 +441,10 @@ export function ConsultForm() {
                 <p>
                   I understand this form is not for emergencies, and that
                   Kara will reply within two business days.
+                  <span aria-hidden="true" className="text-destructive">
+                    {" "}
+                    *
+                  </span>
                 </p>
                 <p className="text-xs">
                   If I'm in crisis, I'll call 988 or 911 instead.

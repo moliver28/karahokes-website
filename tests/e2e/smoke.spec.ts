@@ -38,6 +38,12 @@ test("t1: consent gate blocks submission with no network request", async ({
   page.on("request", (request) => requestUrls.push(request.url()));
 
   await fillNameAndEmail(page);
+  // The acknowledgement is a form requirement: the checkbox announces and
+  // shows that before any submit attempt.
+  await expect(page.locator(CONSENT_CHECKBOX)).toHaveAttribute(
+    "aria-required",
+    "true"
+  );
   // Consent left unchecked on purpose: this is the schema-gate proof.
   await page.getByRole("button", { name: "Request Consultation" }).click();
 
@@ -62,6 +68,31 @@ test("t2: phone becomes required when preferred contact is a call", async ({
     .getByLabel("Best days / times")
     .fill("Weekday mornings");
   await chooseSelect(page, "Preferred contact method", "Phone call");
+  // The phone field signals its new requirement immediately.
+  await expect(page.getByRole("textbox", { name: /Phone number/ })).toHaveAttribute(
+    "aria-required",
+    "true"
+  );
+  await chooseSelect(page, "How did you hear about me?", "Google or another search");
+  await page.locator(CONSENT_CHECKBOX).click();
+  // Phone left empty on purpose.
+  await page.getByRole("button", { name: "Request Consultation" }).click();
+
+  await expect(
+    page.getByText("A phone number is needed so I can call or text you back.")
+  ).toBeVisible();
+});
+
+test("t2b: phone becomes required for text contact too", async ({ page }) => {
+  await fillNameAndEmail(page);
+  await page
+    .getByLabel("Best days / times")
+    .fill("Weekday mornings");
+  await chooseSelect(page, "Preferred contact method", "Text message");
+  await expect(page.getByRole("textbox", { name: /Phone number/ })).toHaveAttribute(
+    "aria-required",
+    "true"
+  );
   await chooseSelect(page, "How did you hear about me?", "Google or another search");
   await page.locator(CONSENT_CHECKBOX).click();
   // Phone left empty on purpose.

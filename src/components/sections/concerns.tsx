@@ -78,7 +78,7 @@ export function Concerns() {
             const Icon = c.icon;
             return (
               <RevealItem key={c.label}>
-                <div className="group flex h-full items-start gap-3 rounded-2xl border border-border/70 bg-card p-4 transition-all duration-300 hover:border-primary/30 hover:bg-secondary/40 hover:shadow-sm">
+                <div className="group flex h-full items-center gap-3 rounded-2xl border border-border/70 bg-card p-4 transition-all duration-300 hover:border-primary/30 hover:bg-secondary/40 hover:shadow-sm">
                   <span className="flex size-9 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary transition-transform group-hover:scale-105">
                     <Icon className="size-5" aria-hidden="true" />
                   </span>
