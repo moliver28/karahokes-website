@@ -61,5 +61,6 @@ jobs:
             --no-progress
             --max-retries 2
             --accept 403
+            --root-dir ./out
             "./out/**/*.html"
           fail: true
