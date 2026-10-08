@@ -55,11 +55,15 @@ jobs:
       - name: Check links in built HTML
         uses: lycheeverse/lychee-action@v2
         with:
-          # --accept 403: psychologytoday.com and wahelms.my.site.com return
-          # 403 to non-browser agents; treat that as an accepted response.
+          # --accept replaces lychee's defaults entirely, so 200 must be
+          # listed alongside 403 (psychologytoday.com and wahelms.my.site.com
+          # return 403 to non-browser agents).
+          # --root-dir: resolve root-relative links (/hero-landscape.png,
+          # /_next/...) against the built out/ directory.
           args: >-
             --no-progress
             --max-retries 2
-            --accept 403
+            --accept 200,204,206,403
+            --root-dir out
             "./out/**/*.html"
           fail: true
