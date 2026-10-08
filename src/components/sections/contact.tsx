@@ -76,7 +76,7 @@ export function Contact() {
                       href={`mailto:${SITE.email}`}
                       className="flex items-start gap-3 text-muted-foreground transition-colors hover:text-foreground"
                     >
-                      <span className="flex size-9 items-center justify-center rounded-lg bg-primary/10 text-primary">
+                      <span className="flex size-9 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary">
                         <Mail className="size-5" aria-hidden="true" />
                       </span>
                       <span>
@@ -92,7 +92,7 @@ export function Contact() {
                       href={SITE.phoneHref}
                       className="flex items-start gap-3 text-muted-foreground transition-colors hover:text-foreground"
                     >
-                      <span className="flex size-9 items-center justify-center rounded-lg bg-primary/10 text-primary">
+                      <span className="flex size-9 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary">
                         <Phone className="size-5" aria-hidden="true" />
                       </span>
                       <span>
@@ -104,7 +104,7 @@ export function Contact() {
                     </a>
                   </li>
                   <li className="flex items-start gap-3 text-muted-foreground">
-                    <span className="flex size-9 items-center justify-center rounded-lg bg-primary/10 text-primary">
+                    <span className="flex size-9 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary">
                       <MapPin className="size-5" aria-hidden="true" />
                     </span>
                     <span>
@@ -117,7 +117,7 @@ export function Contact() {
                     </span>
                   </li>
                   <li className="flex items-start gap-3 text-muted-foreground">
-                    <span className="flex size-9 items-center justify-center rounded-lg bg-primary/10 text-primary">
+                    <span className="flex size-9 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary">
                       <Clock className="size-5" aria-hidden="true" />
                     </span>
                     <span>
@@ -128,7 +128,7 @@ export function Contact() {
                     </span>
                   </li>
                   <li className="flex items-start gap-3 text-muted-foreground">
-                    <span className="flex size-9 items-center justify-center rounded-lg bg-primary/10 text-primary">
+                    <span className="flex size-9 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary">
                       <HandCoins className="size-5" aria-hidden="true" />
                     </span>
                     <span>
@@ -145,7 +145,7 @@ export function Contact() {
                       className="flex items-start gap-3 text-muted-foreground transition-colors hover:text-foreground"
                       aria-label="Download a contact card for Dr. Hokes with the practice phone number, email, and hours"
                     >
-                      <span className="flex size-9 items-center justify-center rounded-lg bg-primary/10 text-primary">
+                      <span className="flex size-9 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary">
                         <Download className="size-5" aria-hidden="true" />
                       </span>
                       <span>
