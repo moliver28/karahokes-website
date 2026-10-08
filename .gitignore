@@ -57,3 +57,8 @@ server.log
 
 # workspace planning artifacts - never published
 /.omo/
+
+# local agent-tool state dirs
+.omc/
+.mimosa/
+.token-optimizer/
