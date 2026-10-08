@@ -1,6 +1,5 @@
 import { CalendarHeart, ClipboardCheck, HandHeart, Sprout, type LucideIcon } from "lucide-react";
 import { Reveal } from "@/components/reveal";
-import { SITE } from "@/lib/site";
 
 type Step = {
   number: string;
@@ -28,7 +27,7 @@ const STEPS: Step[] = [
     number: "03",
     title: "Active Treatment",
     description:
-      "We pick the approach that fits: CPT, DBT, ACT, CBT, or a blend. Before any deep processing, we build stabilization, which means real skills for grounding, sleep, and getting through the hard days. Then we work at a pace you can actually handle.",
+      "We pick the approach that fits: CPT, DBT, ACT, PE, CBT, or a blend. Before any deep processing, we build stabilization, which means real skills for grounding, sleep, and getting through the hard days. Then we work at a pace you can actually handle.",
     icon: HandHeart,
   },
   {
@@ -45,13 +44,13 @@ export function Approach() {
     <section
       id="approach"
       aria-labelledby="approach-heading"
-      className="border-y border-border/60 bg-secondary/30 py-20 md:py-28"
+      className="border-y border-border/60 bg-secondary/30 py-16 md:py-24"
     >
       <div className="mx-auto max-w-6xl px-5">
         <div className="grid gap-12 lg:grid-cols-3 lg:gap-16">
           {/* Left: intro + telehealth visual */}
           <div className="lg:col-span-1">
-            <Reveal>
+            <Reveal className="text-center lg:text-left">
               <span className="text-xs font-semibold uppercase tracking-[0.18em] text-primary">
                 The Process
               </span>
@@ -62,9 +61,11 @@ export function Approach() {
                 What working together actually looks like.
               </h2>
               <p className="mt-4 text-pretty text-base leading-relaxed text-muted-foreground">
-                Most people have never done therapy before, so here&apos;s the
-                usual path from start to finish. We&apos;ll adjust it as we
-                learn more about you.
+                If you haven&apos;t been to therapy before, the process can
+                feel overwhelming. Here&apos;s the path from start to finish
+                — we&apos;ll adjust our individual path as we work
+                together and come up with a treatment plan to address your
+                goals.
               </p>
             </Reveal>
 
@@ -82,19 +83,6 @@ export function Approach() {
                 <p className="border-t border-border/70 px-4 py-3 text-xs text-muted-foreground">
                   Every session happens over secure video: the same
                   evidence-based care, wherever in Washington you are.
-                </p>
-              </div>
-            </Reveal>
-
-            <Reveal delay={0.24}>
-              <div className="mt-6 rounded-2xl border border-border/70 bg-card p-5">
-                <h3 className="font-serif text-base font-semibold text-foreground">
-                  Sessions and groups
-                </h3>
-                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-                  I see individuals and groups. {SITE.fee}, most weekdays,
-                  9am to 5pm Pacific. If you don&apos;t see an open spot on
-                  the calendar, reach out anyway; schedules shift.
                 </p>
               </div>
             </Reveal>

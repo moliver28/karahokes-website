@@ -7,7 +7,7 @@ const FEE_CARDS = [
   {
     icon: HandCoins,
     title: "Sessions & sliding scale",
-    body: `Sessions are ${SITE.feeLine}. If you're uninsured and money is what's keeping you from care, email me and we'll talk about sliding-scale options (a lower fee based on what you can afford); that's a door I keep open on purpose.`,
+    body: "Out of pocket sessions are $150 per 50-minute session. If you're uninsured and money is what's keeping you from care, email me and we'll talk about availability for sliding-scale options (a lower fee based on what you can afford).",
   },
   {
     icon: Receipt,
@@ -17,7 +17,7 @@ const FEE_CARDS = [
   {
     icon: ShieldCheck,
     title: "TriCare, VA, or CHAMPVA?",
-    body: "I'm not in-network with any of them, so I won't be the right billing fit there. If you also carry a civilian plan from the list above, I can take that. Vet Centers provide free counseling to veterans and their families, and ptsd.va.gov can help you find one.",
+    body: "I am not currently in network with Tricare or VA Community Care — my credentialing request is still being processed. If you'd like, I can add you to a waitlist and reach out when credentialing is approved. In the meantime, if you carry a civilian plan from the list above, we can use that, or you can pay out of network with a superbill. Vet Centers also provide free counseling to veterans and their families, and ptsd.va.gov can help you find one.",
     linkLabel: "The longer answer is in the questions below",
     linkHref: "#faq",
   },
@@ -35,7 +35,7 @@ export function Insurance() {
     <section
       id="insurance"
       aria-labelledby="insurance-heading"
-      className="py-20 md:py-28"
+      className="py-16 md:py-24"
     >
       <div className="mx-auto max-w-6xl px-5">
         <Reveal>
@@ -90,7 +90,7 @@ export function Insurance() {
 
         <Reveal delay={0.1}>
           <p className="mx-auto mt-6 max-w-3xl text-center text-xs leading-relaxed text-muted-foreground">
-            Listed exactly as they appear in my practice profile. Cigna EAP
+            Cigna EAP
             stands for Employee Assistance Program; if your employer offers
             one, sessions may be covered. I&apos;m licensed in Washington
             State, so insurance covers clients who live here, and before we

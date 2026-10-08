@@ -12,7 +12,7 @@ const CARDS = [
   {
     icon: UserPlus,
     title: "Who lands well with me",
-    body: "Teens, adults, and elders 65+ by secure video, as individuals or in groups. The core of my practice is trauma and PTSD, emotion dysregulation, sexual abuse recovery, and domestic violence, with CPT, DBT, ACT, and CBT as the main tools. Veterans and first responders, survivors of violence, and people who have caused harm and want to stop are groups I work with often.",
+    body: "Teens, adults, and elders 65+ by secure video. The core of my practice is trauma and PTSD, emotion dysregulation, sexual abuse recovery, and domestic violence, with CPT, DBT, ACT, PE, and CBT as the main tools. Veterans and first responders, survivors of violence, and people who have caused harm and want to stop are groups I work with often.",
   },
   {
     icon: Users,
@@ -22,7 +22,7 @@ const CARDS = [
   {
     icon: ClipboardList,
     title: "The practical part",
-    body: `Online-only across Washington State, plus PSYPACT states for private-pay clients. ${INSURANCE_PLANS.length} insurance plans including Aetna, Premera, Medicare, and Regence; the full list is in the Insurance & Fees section above. ${SITE.fee} with sliding-scale options. Immediate availability most weeks, so first openings usually land within a week.`,
+    body: `Online-only across Washington State, plus PSYPACT states for private-pay clients. ${INSURANCE_PLANS.length} insurance plans including Aetna, Premera, Medicare, and Regence; the full list is in the Insurance & Fees section above. ${SITE.fee} with sliding-scale options. First openings usually land within a week.`,
   },
   {
     icon: HeartHandshake,
@@ -43,7 +43,7 @@ export function Providers() {
     <section
       id="providers"
       aria-labelledby="providers-heading"
-      className="border-y border-border/60 bg-secondary/30 py-20 md:py-28"
+      className="border-y border-border/60 bg-secondary/30 py-16 md:py-24"
     >
       <div className="mx-auto max-w-6xl px-5">
         <Reveal>

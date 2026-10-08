@@ -72,6 +72,7 @@ const jsonLd = {
           "@type": "MedicalTherapy",
           name: "Acceptance and Commitment Therapy (ACT)",
         },
+        { "@type": "MedicalTherapy", name: "Prolonged Exposure (PE)" },
         { "@type": "MedicalTherapy", name: "Cognitive Behavioral Therapy (CBT)" },
       ],
       knowsAbout: [
@@ -84,6 +85,7 @@ const jsonLd = {
         "Anger management",
         "Perinatal mental health",
         "Culturally responsive care",
+        "Prolonged Exposure (PE)",
       ],
       openingHoursSpecification: [
         {

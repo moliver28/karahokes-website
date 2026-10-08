@@ -1,5 +1,6 @@
 import {
   Compass,
+  Footprints,
   Globe2,
   Lightbulb,
   PenLine,
@@ -12,7 +13,7 @@ import {
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Reveal, RevealGroup, RevealItem } from "@/components/reveal";
-// Note: Badge is used for the per-card tag below. The first four are
+// Note: Badge is used for the per-card tag below. The first five are
 // labeled evidence-based (they are named treatments with trial data behind
 // them); the last four are labeled as approaches, which is the honest word.
 
@@ -43,6 +44,13 @@ const MODALITIES: Modality[] = [
     description:
       "Rather than fighting painful thoughts, ACT teaches you to notice them, make room for them, and put your energy into what you actually value. The aim is a life that carries its hard feelings and still moves toward what matters to you.",
     icon: Compass,
+    tag: "Evidence-based",
+  },
+  {
+    name: "Prolonged Exposure (PE)",
+    description:
+      "A structured PTSD treatment built on one finding: avoidance keeps the wound open. Step by step, at a pace your nervous system agrees to, you retell the story and revisit the safe places you've been steering around, and learn the memories themselves are not dangerous. One of the strongest evidence bases in trauma care.",
+    icon: Footprints,
     tag: "Evidence-based",
   },
   {
@@ -87,13 +95,13 @@ export function Specialties() {
     <section
       id="specialties"
       aria-labelledby="specialties-heading"
-      className="py-20 md:py-28"
+      className="py-16 md:py-24"
     >
       <div className="mx-auto max-w-6xl px-5">
         <Reveal>
-          <div className="max-w-2xl">
+          <div className="max-w-2xl text-center lg:text-left">
             <span className="text-xs font-semibold uppercase tracking-[0.18em] text-primary">
-              How I treat
+              Treatments
             </span>
             <h2
               id="specialties-heading"
@@ -104,7 +112,7 @@ export function Specialties() {
             </h2>
             <p className="mt-4 text-pretty text-base leading-relaxed text-muted-foreground">
               These are the approaches listed on my profile, and the first
-              four carry serious research behind them. That doesn't make any
+              five carry serious research behind them. That doesn't make any
               of them a default. In our first sessions we'll look at your
               history and what you want out of therapy, then choose together.
               If something isn't working after a fair trial, we change

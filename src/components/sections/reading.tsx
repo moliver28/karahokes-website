@@ -82,7 +82,7 @@ export function Reading() {
     <section
       id="reading"
       aria-labelledby="reading-heading"
-      className="py-20 md:py-28"
+      className="py-16 md:py-24"
     >
       <div className="mx-auto max-w-6xl px-5">
         <Reveal>

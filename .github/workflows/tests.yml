@@ -1,0 +1,65 @@
+name: Tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+  # Weekly link check: external URLs (crisis resources) must never rot.
+  schedule:
+    - cron: "0 0 * * 0"
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run lint
+      # tsc policy: fix only type errors introduced by the current change set.
+      # Pre-existing unrelated errors -> STOP and report; never mass-fix,
+      # never remove this step.
+      - run: npx tsc --noEmit
+      - run: npm run build
+      - run: node scripts/check-facts.mjs
+      - run: npx playwright install --with-deps chromium
+      - run: npm run test:e2e
+      - name: Upload Playwright report
+        uses: actions/upload-artifact@v4
+        if: "!cancelled()"
+        with:
+          name: playwright-report
+          path: playwright-report
+          retention-days: 30
+
+  links:
+    needs: validate
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+      - name: Check links in built HTML
+        uses: lycheeverse/lychee-action@v2
+        with:
+          # --accept 403: psychologytoday.com and wahelms.my.site.com return
+          # 403 to non-browser agents; treat that as an accepted response.
+          args: >-
+            --no-progress
+            --max-retries 2
+            --accept 403
+            "./out/**/*.html"
+          fail: true

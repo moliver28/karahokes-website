@@ -13,13 +13,13 @@ export function Hero() {
     >
       <HeroImage />
 
-      <div className="relative z-10 mx-auto max-w-6xl px-5 py-16 md:py-24 lg:py-32">
-        <div className="max-w-3xl">
+      <div className="relative z-10 mx-auto max-w-6xl px-5 py-12 md:py-20 lg:py-28">
+        <div className="max-w-3xl text-center lg:text-left">
           {/* A face before any copy: for someone deciding whether to trust a
               stranger with hard things, the photo is the first answer. The
               name is adjacent text, so the image is decorative to readers. */}
           <Reveal>
-            <div className="flex items-center gap-3.5">
+            <div className="flex items-center gap-3.5 justify-center lg:justify-start">
               <span className="relative size-14 shrink-0 overflow-hidden rounded-full ring-2 ring-background shadow-md shadow-primary/15">
                 <Image
                   src={SITE.avatar}
@@ -60,13 +60,12 @@ export function Hero() {
 
           <Reveal delay={0.24}>
             <p className="mt-6 max-w-2xl text-lg leading-relaxed text-muted-foreground text-balance">
-              I&apos;m Dr. Kara Hokes, a clinical psychologist in Tacoma,
-              Washington, with almost ten years of experience helping people
-              adapt to hard circumstances: trauma, emotion dysregulation,
-              anxiety, anger, and perinatal mental health. I work with
-              veterans, first responders, survivors of sexual and domestic
-              violence, and people of all backgrounds and cultures, over
-              secure video.
+              I’m Dr. Kara Hokes, a licensed psychologist specializing in
+              evidence-based care for trauma and emotion dysregulation.
+              Together, we’ll use approaches like DBT, CPT, PE, and ACT to
+              meet your needs: at a pace that honors your nervous system and
+              story. Evidence-based does not have to mean cold. I bring
+              curiosity, warmth, and focused attention to every session.
             </p>
           </Reveal>
 
@@ -97,18 +96,20 @@ export function Hero() {
           </Reveal>
 
           <Reveal delay={0.4}>
-            <p className="mt-6 flex items-center gap-2 text-sm text-muted-foreground">
+            <p className="mt-6 flex items-center gap-2 text-sm text-muted-foreground justify-center lg:justify-start">
               <Video className="size-4 shrink-0 text-primary/80" aria-hidden="true" />
-              Secure video across Washington State and PSYPACT states · $150
-              per session with a free 15-minute intro call · Most major
-              insurance accepted
+              Most major insurance accepted · $150 per session with a free
+              15-minute intro call · Secure video across Washington State and
+              PSYPACT states
             </p>
           </Reveal>
+
+          <p className="mt-2.5 text-xs text-muted-foreground">Also listed on my{" "}<a href={SITE.psychologyToday} target="_blank" rel="noopener noreferrer" className="font-medium text-primary underline-offset-4 hover:underline">Psychology Today</a> profile.</p>
 
           {/* The two things an anxious visitor scans for most (cost and what
               to do if tonight is the hard night) now sit above the fold. */}
           <Reveal delay={0.48}>
-            <p className="mt-2.5 flex items-start gap-2 text-xs leading-relaxed text-muted-foreground">
+            <p className="mt-2.5 flex items-start gap-2 text-xs leading-relaxed text-muted-foreground justify-center lg:justify-start">
               <LifeBuoy
                 className="mt-0.5 size-3.5 shrink-0 text-destructive/80"
                 aria-hidden="true"

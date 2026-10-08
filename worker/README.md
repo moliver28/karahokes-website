@@ -108,5 +108,35 @@ the practice and its professional counsel.
 ## Local verification
 
 `npx wrangler dev` (local mode, no login needed), then POST/GET against
-`http://localhost:8787`. See `.omo/evidence/task-4-karahokes-site-launch.txt`
-for the full curl matrix this code was verified against.
+`http://localhost:8787`. Local verification matrix:
+
+```
+BODY='{"name":"Jane Doe","email":"jane@example.com","preferredContact":"email","availability":"Weekday mornings","source":"search","consent":true}'
+
+# valid submission -> 200, one D1 row stored
+curl -s -X POST http://localhost:8787 -H "Content-Type: application/json" -d "$BODY"
+#   {"ok":true,"id":"<uuid>"}
+
+# empty name -> 400 with the first field error
+curl -s -X POST http://localhost:8787 -H "Content-Type: application/json" \
+  -d '{"name":"","email":"jane@example.com","preferredContact":"email","availability":"Weekday mornings","source":"search","consent":true}'
+#   {"ok":false,"error":"Please share your name (2+ characters)."}
+#   (a body with NO "name" key instead returns zod's technical invalid_type
+#   message: "Invalid input: expected string, received undefined")
+
+# honeypot ("company") filled -> 200 {ok:true}, nothing stored
+curl -s -X POST http://localhost:8787 -H "Content-Type: application/json" \
+  -d '{"company":"bot","name":"Jane Doe","email":"jane@example.com","preferredContact":"email","availability":"Weekday mornings","source":"search","consent":true}'
+#   {"ok":true}
+
+# count-only read
+curl -s http://localhost:8787
+#   {"count":<N>}
+
+# six rapid POSTs from the same IP -> the 6th is rejected
+for i in 1 2 3 4 5 6; do curl -s -o /dev/null -w "%{http_code}\n" \
+  -X POST http://localhost:8787 -H "Content-Type: application/json" -d "$BODY"; done
+#   200 five times, then 429 {"ok":false,"error":"Several requests have come
+#   from your connection in the last few minutes. Please wait a bit, or call
+#   (360) 358-5174."}
+```

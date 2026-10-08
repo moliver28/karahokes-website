@@ -1,13 +1,12 @@
 import Link from "next/link";
 import { Leaf, Mail, Phone, Video, LifeBuoy } from "lucide-react";
 import { PrintButton } from "@/components/print-button";
-import { QuickExit } from "@/components/quick-exit";
 import { SITE } from "@/lib/site";
 
 const QUICK_LINKS = [
   { href: "#about", label: "About" },
   { href: "#communities", label: "Who I Work With" },
-  { href: "#specialties", label: "Specialties" },
+  { href: "#specialties", label: "Treatments" },
   { href: "#grounding", label: "Grounding" },
   { href: "#approach", label: "Approach" },
   { href: "#reading", label: "Reading" },
@@ -126,24 +125,45 @@ export function SiteFooter() {
                 988: Suicide &amp; Crisis Lifeline
               </p>
               <p className="mt-1.5 text-xs leading-relaxed text-muted-foreground">
-                If you are in immediate danger, call <strong>988</strong> or{" "}
-                <strong>911</strong>, or go to your nearest emergency room. You
-                can also text <strong>HOME</strong> to <strong>741741</strong>{" "}
+                If you are in immediate danger, call{" "}
+                <a
+                  href="tel:988"
+                  className="underline-offset-4 hover:underline"
+                >
+                  <strong>988</strong>
+                </a>{" "}
+                or{" "}
+                <a
+                  href="tel:911"
+                  className="underline-offset-4 hover:underline"
+                >
+                  <strong>911</strong>
+                </a>
+                , or go to your nearest emergency room. You can also text{" "}
+                <strong>HOME</strong> to{" "}
+                <a
+                  href="sms:741741"
+                  className="underline-offset-4 hover:underline"
+                >
+                  <strong>741741</strong>
+                </a>{" "}
                 to reach the Crisis Text Line, free and staffed 24/7.
-                Veterans: 988, then press 1. Domestic violence: 1-800-799-7233.
-                This form is not monitored around the clock.
+                Veterans:{" "}
+                <a
+                  href="tel:988"
+                  className="underline-offset-4 hover:underline"
+                >
+                  988
+                </a>
+                , then press 1. Domestic violence:{" "}
+                <a
+                  href="tel:+18007997233"
+                  className="underline-offset-4 hover:underline"
+                >
+                  1-800-799-7233
+                </a>
+                . This form is not monitored around the clock.
               </p>
-              <div className="mt-3 border-t border-destructive/15 pt-3">
-                <QuickExit />
-                <span className="mt-1.5 block text-[11px] leading-snug text-muted-foreground">
-                  Opens a plain website right away. The back button won&apos;t
-                  bring you back here. From the keyboard: press{" "}
-                  <kbd className="rounded border border-border bg-secondary px-1 py-0.5 font-sans text-[10px] font-semibold">
-                    Esc
-                  </kbd>{" "}
-                  three times, quickly.
-                </span>
-              </div>
               <div className="mt-3 flex items-center gap-2 border-t border-destructive/15 pt-3">
                 <PrintButton label="Print" />
                 <span className="text-[11px] leading-snug text-muted-foreground">

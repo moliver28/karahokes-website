@@ -1,9 +1,9 @@
 import {
-  Activity,
   Baby,
   Brain,
   CloudRain,
   Flame,
+  Flower2,
   Focus,
   HeartCrack,
   HeartPulse,
@@ -38,9 +38,9 @@ const CONCERNS: Concern[] = [
   { label: "Depression", icon: CloudRain },
   { label: "Suicidal thoughts", icon: HeartPulse },
   { label: "Borderline personality (BPD)", icon: Layers },
-  { label: "Bipolar disorder", icon: Activity },
   { label: "ADHD", icon: Focus },
   { label: "Pregnancy, prenatal & postpartum", icon: Baby },
+  { label: "Menopause", icon: Flower2 },
   { label: "Eating disorders & body image", icon: PersonStanding },
   { label: "Relationship issues & life transitions", icon: Link2 },
 ];
@@ -50,7 +50,7 @@ export function Concerns() {
     <section
       id="concerns"
       aria-labelledby="concerns-heading"
-      className="border-y border-border/60 bg-secondary/30 py-20 md:py-28"
+      className="border-y border-border/60 bg-secondary/30 py-16 md:py-24"
     >
       <div className="mx-auto max-w-6xl px-5">
         <div className="mx-auto max-w-2xl text-center">

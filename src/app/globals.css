@@ -65,7 +65,7 @@
   --accent: oklch(0.5 0.11 45);
   --accent-foreground: oklch(0.995 0.008 80);
 
-  /* Deepened from 0.55 so destructive TEXT (form errors, quick-exit label)
+  /* Deepened from 0.55 so destructive TEXT (form errors)
      clears 4.5:1 on its tinted backgrounds per WCAG 1.4.3. */
   --destructive: oklch(0.46 0.19 28);
 

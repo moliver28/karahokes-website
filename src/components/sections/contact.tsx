@@ -13,13 +13,10 @@ import {
   Video,
 } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { AfterYouSend } from "@/components/after-you-send";
 import { ConsultForm } from "@/components/consult-form";
-import { OpenNow } from "@/components/open-now";
-import { PrepChecklist } from "@/components/prep-checklist";
 import { PrintButton } from "@/components/print-button";
-import { QuickExit } from "@/components/quick-exit";
 import { Reveal } from "@/components/reveal";
+import { WhatToExpectNext } from "@/components/what-to-expect-next";
 import { SITE } from "@/lib/site";
 
 // PSYPACT participating states as of this writing (PSYPACT is an
@@ -43,7 +40,7 @@ export function Contact() {
     <section
       id="contact"
       aria-labelledby="contact-heading"
-      className="py-20 md:py-28"
+      className="py-16 md:py-24"
     >
       <div className="mx-auto max-w-6xl px-5">
         <Reveal>
@@ -69,23 +66,6 @@ export function Contact() {
           {/* Left: contact info + logistics + crisis */}
           <Reveal y={20} className="lg:col-span-2">
             <div className="flex h-full flex-col gap-5">
-              <div className="flex items-center gap-3 rounded-2xl border border-primary/20 bg-primary/5 px-5 py-4">
-                <span
-                  className="relative flex size-2.5 shrink-0"
-                  aria-hidden="true"
-                >
-                  <span className="absolute inline-flex h-full w-full rounded-full bg-primary opacity-60 motion-safe:animate-ping" />
-                  <span className="relative inline-flex size-2.5 rounded-full bg-primary" />
-                </span>
-                <p className="text-sm leading-snug text-foreground">
-                  <strong className="font-semibold">
-                    Immediate availability most weeks.
-                  </strong>{" "}
-                  First openings usually come up within the next one to two
-                  weeks; reach out by email or phone to schedule.
-                </p>
-              </div>
-
               <div className="rounded-2xl border border-border/70 bg-card p-6 shadow-sm transition-colors duration-300 hover:border-primary/30">
                 <h3 className="font-serif text-xl font-semibold text-foreground">
                   Reach the practice
@@ -145,11 +125,8 @@ export function Contact() {
                         Hours
                       </span>
                       Most weekdays, 9am to 5pm Pacific
-                      <br />
-                      Video sessions and replies
                     </span>
                   </li>
-                  <OpenNow />
                   <li className="flex items-start gap-3 text-muted-foreground">
                     <span className="flex size-9 items-center justify-center rounded-lg bg-primary/10 text-primary">
                       <HandCoins className="size-5" aria-hidden="true" />
@@ -158,10 +135,7 @@ export function Contact() {
                       <span className="block text-xs uppercase tracking-[0.14em] text-muted-foreground">
                         Fees
                       </span>
-                      {SITE.fee} · Free {SITE.consultMinutes}-minute intro
-                      call
-                      <br />
-                      Most major insurance accepted · Sliding scale by email
+                      Most major insurances accepted · $150 out of pocket cost · Free 15-minute consultation
                     </span>
                   </li>
                   <li>
@@ -185,11 +159,6 @@ export function Contact() {
                     </a>
                   </li>
                 </ul>
-                <p className="mt-4 border-t border-border/60 pt-4 text-xs leading-relaxed text-muted-foreground">
-                  The contact card carries the phone number, email, and hours.
-                  Insurance details are in their own section above, and
-                  I&apos;m glad to talk any of it through on the intro call.
-                </p>
               </div>
 
               {/* Where I can see you: licensing geography */}
@@ -197,10 +166,6 @@ export function Contact() {
                 <h3 className="font-serif text-xl font-semibold text-foreground">
                   Where I can see you
                 </h3>
-                <p className="mt-1 text-sm leading-relaxed text-muted-foreground">
-                  The short version: every session is video, and geography is
-                  mostly a licensing question.
-                </p>
                 <ul className="mt-4 space-y-3.5 text-sm leading-relaxed text-muted-foreground">
                   <li className="flex items-start gap-3">
                     <span className="flex size-9 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary">
@@ -254,8 +219,7 @@ export function Contact() {
                   If we meet by video
                 </h3>
                 <p className="mt-1 text-sm leading-relaxed text-muted-foreground">
-                  Every session happens this way, so here&apos;s exactly what
-                  the setup looks like.
+                  Every session happens this way, so here&apos;s the short version.
                 </p>
                 <ul className="mt-4 space-y-3.5 text-sm leading-relaxed text-muted-foreground">
                   <li className="flex items-start gap-3">
@@ -266,9 +230,8 @@ export function Contact() {
                       <strong className="font-semibold text-foreground">
                         The link:
                       </strong>{" "}
-                      a private video address I send the morning of your
-                      session. It opens in your browser; no account, no
-                      download.
+                      a private video address the morning of your session —
+                      opens in your browser, no account, no download.
                     </span>
                   </li>
                   <li className="flex items-start gap-3">
@@ -280,8 +243,8 @@ export function Contact() {
                         What helps:
                       </strong>{" "}
                       a room where you can close the door, headphones if you
-                      have them, and a connection steady enough for video. A
-                      phone works in a pinch.
+                      have them, a steady connection. A phone works in a
+                      pinch.
                     </span>
                   </li>
                   <li className="flex items-start gap-3">
@@ -292,8 +255,7 @@ export function Contact() {
                       <strong className="font-semibold text-foreground">
                         Privacy:
                       </strong>{" "}
-                      the platform is HIPAA-compliant, the call is encrypted,
-                      and nothing is recorded, either side.
+                      HIPAA-compliant, encrypted, nothing recorded on either side.
                     </span>
                   </li>
                   <li className="flex items-start gap-3">
@@ -304,9 +266,7 @@ export function Contact() {
                       <strong className="font-semibold text-foreground">
                         Backup plan:
                       </strong>{" "}
-                      if video drops, we finish the session on the phone. We
-                      agree on the number before the first session, so a bad
-                      connection never costs you the hour.
+                      if video drops, we finish on the phone.
                     </span>
                   </li>
                 </ul>
@@ -324,36 +284,52 @@ export function Contact() {
                 </div>
                 <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
                   If you&apos;re in immediate danger, please call{" "}
-                  <strong className="text-foreground">988</strong> (Suicide
-                  &amp; Crisis Lifeline) or{" "}
-                  <strong className="text-foreground">911</strong>, or go to
-                  your nearest emergency room.
+                  <a
+                    href="tel:988"
+                    className="underline-offset-4 hover:underline"
+                  >
+                    <strong className="text-foreground">988</strong>
+                  </a>{" "}
+                  (Suicide &amp; Crisis Lifeline) or{" "}
+                  <a
+                    href="tel:911"
+                    className="underline-offset-4 hover:underline"
+                  >
+                    <strong className="text-foreground">911</strong>
+                  </a>
+                  , or go to your nearest emergency room.
                 </p>
                 <p className="mt-2 text-xs leading-relaxed text-muted-foreground">
-                  Veterans: call 988 and press{" "}
+                  Veterans: call{" "}
+                  <a
+                    href="tel:988"
+                    className="underline-offset-4 hover:underline"
+                  >
+                    988
+                  </a>{" "}
+                  and press{" "}
                   <strong className="text-foreground">1</strong> for the
                   Veterans Crisis Line. If someone is hurting you at home:{" "}
-                  <strong className="text-foreground">1-800-799-7233</strong>{" "}
+                  <a
+                    href="tel:+18007997233"
+                    className="underline-offset-4 hover:underline"
+                  >
+                    <strong className="text-foreground">1-800-799-7233</strong>
+                  </a>{" "}
                   (National Domestic Violence Hotline). For sexual assault
                   support, any hour:{" "}
-                  <strong className="text-foreground">1-800-656-4673</strong>{" "}
+                  <a
+                    href="tel:+18006564673"
+                    className="underline-offset-4 hover:underline"
+                  >
+                    <strong className="text-foreground">1-800-656-4673</strong>
+                  </a>{" "}
                   (RAINN).
                 </p>
                 <p className="mt-2 text-xs text-muted-foreground">
                   This form isn&apos;t monitored around the clock, so please
                   don&apos;t use it for emergencies.
                 </p>
-                <div className="mt-3 flex items-center gap-2 border-t border-destructive/15 pt-3">
-                  <QuickExit />
-                  <span className="text-[11px] leading-snug text-muted-foreground">
-                    Opens a plain website right away. The back button won&apos;t
-                    bring you back here. From the keyboard: press{" "}
-                    <kbd className="rounded border border-border bg-secondary px-1 py-0.5 font-sans text-[10px] font-semibold">
-                      Esc
-                    </kbd>{" "}
-                    three times, quickly.
-                  </span>
-                </div>
                 <div className="mt-3 flex items-center gap-2 border-t border-destructive/15 pt-3">
                   <PrintButton />
                   <span className="text-[11px] leading-snug text-muted-foreground">
@@ -383,33 +359,19 @@ export function Contact() {
                     aria-hidden="true"
                   />
                   <span>
-                    {SITE.feeLine}. The {SITE.consultMinutes}-minute intro
-                    call is free, most major insurance is accepted, and
-                    sliding-scale options exist if you&apos;re paying without
-                    insurance.
+                    Most major insurance is accepted. Sessions are{" "}
+                    {SITE.feeLine}, the {SITE.consultMinutes}-minute intro
+                    call is free, and sliding-scale options exist if
+                    you&apos;re paying without insurance.
                   </span>
                 </p>
               </CardHeader>
               <CardContent>
                 <ConsultForm />
-                <p className="mt-5 flex items-start gap-2 border-t border-border/60 pt-4 text-xs leading-relaxed text-muted-foreground">
-                  <ShieldCheck
-                    className="mt-0.5 size-4 shrink-0 text-primary"
-                    aria-hidden="true"
-                  />
-                  <span>
-                    What you write here goes to my practice email only. It&apos;s
-                    not added to any list and it&apos;s not shared. Please leave
-                    out anything you&apos;d rather say out loud first; a sentence
-                    or two is plenty to start.
-                  </span>
-                </p>
               </CardContent>
             </Card>
 
-            <AfterYouSend />
-
-            <PrepChecklist />
+            <WhatToExpectNext />
             </div>
           </Reveal>
         </div>

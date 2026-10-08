@@ -18,11 +18,11 @@ export const FAQ_ITEMS: QA[] = [
   },
   {
     q: "Do you take TriCare or VA Community Care?",
-    a: "I'm not in-network with TriCare, VA Community Care, or CHAMPVA, so if that's the coverage you hold, I won't be the right billing fit. A few honest paths: if you also carry a civilian plan from the list above, I can take that. Vet Centers provide free counseling to veterans and their families, no insurance involved, and ptsd.va.gov can help you find one. If you'd rather pay directly, I'm $150 a session with sliding-scale options. Bring your benefits questions to the free consultation and we'll sort out what makes sense.",
+    a: "I'm not currently in network with Tricare or VA Community Care — my credentialing request is still being processed. If you'd like, I can add you to a waitlist and reach out when credentialing is approved. In the meantime, if you carry a civilian plan from the list above, we can use that, or you can pay out of network with a superbill. Vet Centers also provide free counseling to veterans and their families, and ptsd.va.gov can help you find one.",
   },
   {
     q: "What does therapy cost?",
-    a: "Sessions are $150 each. If you're uninsured and money is what's keeping you from care, email me and we'll talk about sliding-scale options (a lower fee based on what you can afford); that's a door I keep open on purpose. If you're paying without insurance, federal law gives you the right to a Good Faith Estimate of what care is expected to cost: ask me any time and I'll write one for you.",
+    a: "If you are using insurance session payment depends on your deductible and individual plan. Most people's co-pays range between 15-30 dollars per session. Out of pocket sessions are $150 each. If you're uninsured and money is what's keeping you from care, email me and we'll talk about sliding-scale options (a lower fee based on what you can afford).",
   },
   {
     q: "Are sessions really all remote?",
@@ -30,7 +30,7 @@ export const FAQ_ITEMS: QA[] = [
   },
   {
     q: "Who do you work with?",
-    a: "Veterans and first responders, survivors of sexual and domestic violence, and people who have caused harm and want to stop. Also the communities too often overlooked in care: queer and trans folks, people of color, immigrants, elders, and anyone immunocompromised or chronically ill who's tired of explaining that part of their life. Individuals of all backgrounds and cultures are welcome, and I see individuals and groups.",
+    a: "Veterans and first responders, survivors of sexual and domestic violence, and people who have caused harm and want to stop. Also the communities too often overlooked in care: queer and trans folks, people of color, immigrants, elders, and anyone immunocompromised or chronically ill who's tired of explaining that part of their life. Individuals of all backgrounds and cultures are welcome, and I see individuals.",
   },
   {
     q: "I've hurt someone. Can I still come to therapy?",
@@ -46,7 +46,7 @@ export const FAQ_ITEMS: QA[] = [
   },
   {
     q: "Will my employer or the military find out I'm in therapy?",
-    a: "Being in therapy isn't the kind of thing that gets reported to an employer, a command, or a licensing board; what you say stays between us except for the few legal exceptions above. One honest caveat: if we bill your insurance, the plan processes the claim and may send its own paperwork to your home. If you'd rather keep therapy entirely outside any insurance record, private pay is always an option. We can talk through both on the free call and you decide with the full picture.",
+    a: "Confidentiality is one of my highest priorities. What you say stays between us except for the few legal exceptions above. One honest caveat: if we bill your insurance, the plan processes the claim and may send its own paperwork to your home. If you'd rather keep therapy entirely outside any insurance record, private pay is always an option. We can talk through both on the free call and you decide what is best for you.",
   },
   {
     q: "What if I need to cancel or reschedule?",
@@ -58,7 +58,7 @@ export const FAQ_ITEMS: QA[] = [
   },
   {
     q: "What ages do you see?",
-    a: "Teens, adults, and elders 65+, all by video, as individuals or in groups. For young children I'll refer you to colleagues who specialize in child and adolescent work, people I would send my own family to.",
+    a: "Teens, adults, and elders 65+, all by video. For young children I'll refer you to colleagues who specialize in child and adolescent work, people I would send my own family to.",
   },
   {
     q: "Do you offer supervision or consultation for other clinicians?",
@@ -66,7 +66,7 @@ export const FAQ_ITEMS: QA[] = [
   },
   {
     q: "How soon can we start?",
-    a: `Usually quickly: I have immediate availability most weeks, so first openings often land within the next week. Call ${SITE.phoneDisplay} or email me for a free 15-minute consultation, and we'll get an intake on the calendar. If I'm not the right fit, I'll tell you honestly and point you toward someone who is.`,
+    a: `Usually quickly: first openings often land within the next week. Call ${SITE.phoneDisplay} or email me for a free 15-minute consultation, and we'll get an intake on the calendar. If I'm not the right fit, I'll tell you honestly and point you toward someone who is.`,
   },
 ];
 

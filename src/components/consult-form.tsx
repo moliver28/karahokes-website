@@ -29,37 +29,56 @@ import {
 import { useToast } from "@/hooks/use-toast";
 import { SITE } from "@/lib/site";
 
-const FormSchema = z.object({
-  name: z.string().min(2, "Please share your name (2+ characters)."),
-  email: z.string().email("A valid email is required."),
-  phone: z.string().optional(),
-  preferredContact: z.enum(["email", "phone", "text"], {
-    message: "Select a preferred contact method.",
-  }),
-  availability: z.string().optional(),
-  source: z
-    .enum([
-      "psychology-today",
-      "search",
-      "provider-referral",
-      "insurance-directory",
-      "social",
-      "rather-not-say",
-    ])
-    .optional(),
-  // Deliberately not a clinical field: it exists for scheduling logistics
-  // only, and its copy asks visitors to keep health details out. See the
-  // mirrored validation in worker/src/index.ts.
-  message: z.string().max(1000, "Please keep this under 1000 characters.").optional(),
-  // Honeypot: real people never see or fill this (it sits off-screen and is
-  // skipped by keyboard and screen readers). It exists so bots that fill
-  // every input announce themselves. The server silently drops submissions
-  // where it's filled; see the mirrored validation in worker/src/index.ts.
-  company: z.string().optional(),
-  consent: z.literal(true, {
-    message: "Please acknowledge the consent statement to continue.",
-  }),
-});
+const FormSchema = z
+  .object({
+    name: z.string().min(2, "Please share your name (2+ characters)."),
+    email: z.string().email("A valid email is required."),
+    phone: z.string().optional(),
+    preferredContact: z.enum(["email", "phone", "text"], {
+      message: "Select a preferred contact method.",
+    }),
+    availability: z
+      .string()
+      .trim()
+      .min(1, "Please share a few days or times that could work."),
+    source: z.enum(
+      [
+        "psychology-today",
+        "search",
+        "provider-referral",
+        "insurance-directory",
+        "social",
+        "rather-not-say",
+      ],
+      {
+        message: "Please let me know how you found me.",
+      },
+    ),
+    // Deliberately not a clinical field: it exists for scheduling logistics
+    // only, and its copy asks visitors to keep health details out. See the
+    // mirrored validation in worker/src/index.ts.
+    message: z.string().max(1000, "Please keep this under 1000 characters.").optional(),
+    // Honeypot: real people never see or fill this (it sits off-screen and is
+    // skipped by keyboard and screen readers). It exists so bots that fill
+    // every input announce themselves. The server silently drops submissions
+    // where it's filled; see the mirrored validation in worker/src/index.ts.
+    company: z.string().optional(),
+    consent: z.literal(true, {
+      message: "Please acknowledge the consent statement to continue.",
+    }),
+  })
+  .superRefine((data, ctx) => {
+    if (
+      (data.preferredContact === "phone" || data.preferredContact === "text") &&
+      !(data.phone ?? "").trim()
+    ) {
+      ctx.addIssue({
+        code: "custom",
+        path: ["phone"],
+        message: "A phone number is needed so I can call or text you back.",
+      });
+    }
+  });
 
 type FormValues = z.infer<typeof FormSchema>;
 
@@ -233,7 +252,7 @@ export function ConsultForm() {
             name="phone"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Phone (optional)</FormLabel>
+                <FormLabel>Phone number</FormLabel>
                 <FormControl>
                   <Input
                     type="tel"
@@ -259,7 +278,10 @@ export function ConsultForm() {
               </FormLabel>
               <Select
                 value={field.value}
-                onValueChange={field.onChange}
+                onValueChange={(v) => {
+                  field.onChange(v);
+                  void form.trigger("phone");
+                }}
                 defaultValue={field.value}
               >
                 <FormControl>
@@ -283,10 +305,14 @@ export function ConsultForm() {
           name="availability"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Best days / times</FormLabel>
+              <FormLabel>
+                Best days / times{" "}
+                <span aria-hidden="true" className="text-destructive">*</span>
+              </FormLabel>
               <FormControl>
                 <Input
                   placeholder="e.g. weekday mornings, Tue/Thu afternoons"
+                  aria-required="true"
                   {...field}
                 />
               </FormControl>
@@ -300,15 +326,18 @@ export function ConsultForm() {
           name="source"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>How did you hear about me? (optional)</FormLabel>
+              <FormLabel>
+                How did you hear about me?{" "}
+                <span aria-hidden="true" className="text-destructive">*</span>
+              </FormLabel>
               <Select
                 value={field.value ?? ""}
                 onValueChange={field.onChange}
                 defaultValue={field.value ?? ""}
               >
                 <FormControl>
-                  <SelectTrigger className="w-full sm:w-72">
-                    <SelectValue placeholder="Select one, or leave blank" />
+                  <SelectTrigger className="w-full sm:w-72" aria-required="true">
+                    <SelectValue placeholder="Select one" />
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent>
@@ -320,10 +349,6 @@ export function ConsultForm() {
                   <SelectItem value="rather-not-say">I&apos;d rather not say</SelectItem>
                 </SelectContent>
               </Select>
-              <FormDescription>
-                It helps me know what's working. The answer never changes how
-                I reply, and skipping it changes nothing.
-              </FormDescription>
               <FormMessage />
             </FormItem>
           )}
@@ -341,7 +366,7 @@ export function ConsultForm() {
                 <Textarea
                   rows={4}
                   maxLength={1000}
-                  placeholder="Scheduling details work best here. Please do not include medical or personal health information."
+                  placeholder="Share what you're comfortable with. Please do not include medical or personal health information."
                   {...field}
                 />
               </FormControl>

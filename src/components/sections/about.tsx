@@ -7,7 +7,7 @@ const CREDENTIALS = [
   "PhD, Clinical Psychology",
   "Licensed Psychologist, Washington State (#61681733)",
   "PSYPACT Certified: telehealth across participating states",
-  "Trained in ACT, CBT, CPT, and DBT",
+  "Trained in ACT, CBT, CPT, DBT, and PE",
   "Trauma-focused, strength-based, and feminist approaches",
   "Clinical supervision and consultation for other clinicians",
 ];
@@ -17,7 +17,7 @@ export function About() {
     <section
       id="about"
       aria-labelledby="about-heading"
-      className="py-20 md:py-28"
+      className="py-16 md:py-24"
     >
       <div className="mx-auto max-w-6xl px-5">
         <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-14">
@@ -60,12 +60,12 @@ export function About() {
 
           {/* Bio */}
           <div className="lg:pl-4">
-            <Reveal>
+            <Reveal className="text-center lg:text-left">
               <span className="text-xs font-semibold uppercase tracking-[0.18em] text-primary">
                 About Dr. Hokes
               </span>
             </Reveal>
-            <Reveal delay={0.08}>
+            <Reveal className="text-center lg:text-left" delay={0.08}>
               <h2
                 id="about-heading"
                 className="mt-3 font-serif text-3xl font-semibold leading-tight text-foreground text-balance sm:text-4xl"
@@ -74,30 +74,27 @@ export function About() {
                 partnership aimed at your goals.
               </h2>
             </Reveal>
-            <Reveal delay={0.16}>
+            <Reveal className="text-center lg:text-left" delay={0.16}>
               <div className="mt-6 space-y-4 text-pretty text-base leading-relaxed text-muted-foreground">
                 <p>
-                  I&apos;m Kara. I&apos;m a clinical psychologist with{" "}
-                  <strong className="font-medium text-foreground">
-                    almost ten years
-                  </strong>{" "}
-                  of experience helping individuals adapt to challenging life
-                  circumstances. My specializations are trauma, emotion
-                  dysregulation, anxiety, anger, and perinatal mental health,
-                  and I work with first responders, healthcare workers,
-                  veterans, and individuals of all backgrounds and cultures.
+                  I’m Kara. I’ve spent almost 10 years working with adults whose lives
+                  have been significantly impacted by trauma. Before private practice I
+                  directed a counseling program for first responders and worked for many years at Veterans Affairs
+                  as a clinical psychologist. What I've learned is that trauma is not a
+                  life sentence — it is a treatable condition, and the treatments genuinely work.
                 </p>
                 <p>
-                  I&apos;m trained in evidence-based practices, meaning
-                  treatments with real research behind them:{" "}
-                  <em className="text-foreground/90">ACT</em>,{" "}
-                  <em className="text-foreground/90">CBT</em>,{" "}
-                  <em className="text-foreground/90">CPT</em>, and{" "}
-                  <em className="text-foreground/90">DBT</em>. And I believe
-                  culturally responsive care matters as much as the research,
-                  so every client I work with feels seen, respected, and
-                  heard. Therapy here is a partnership: you bring the goals, I
-                  bring the tools, and we work on both.
+                  My other specializations include emotion dysregulation, anxiety, anger,
+                  relationship issues, and women’s health (perinatal health, menopause).
+                  I'm trained in evidence-based practices, meaning treatments with real
+                  research behind them. I believe culturally responsive care matters as
+                  much as the research, so together we will choose a treatment that fits
+                  you rather than fitting you to a treatment. Therapy here is a
+                  partnership: you set the pace, we go in order of what matters to you,
+                  and nothing happens in a session that you haven't agreed to first.
+                  Outside the office I'm usually on a trail with my dog and partner,
+                  reading a new fantasy/sci-fi book, or getting my hands dirty at the
+                  pottery studio.
                 </p>
               </div>
             </Reveal>
@@ -106,8 +103,7 @@ export function About() {
               <figure className="mt-7 rounded-xl border border-border/70 bg-secondary/40 p-5">
                 <blockquote className="font-serif text-lg italic leading-relaxed text-foreground">
                   <Quote className="mb-2 size-5 text-accent" aria-hidden="true" />
-                  If you feel like each day is a roller coaster and you would
-                  like to get off of the ride, I&apos;m here to help.
+                  You deserve a therapist who sees your full humanity — not just your symptoms.
                 </blockquote>
               </figure>
             </Reveal>

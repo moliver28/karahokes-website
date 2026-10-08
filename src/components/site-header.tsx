@@ -19,7 +19,7 @@ import {
 const NAV_LINKS = [
   { href: "#about", label: "About" },
   { href: "#communities", label: "Who I Work With" },
-  { href: "#specialties", label: "Specialties" },
+  { href: "#specialties", label: "Treatments" },
   { href: "#insurance", label: "Insurance" },
   { href: "#faq", label: "FAQ" },
   { href: "#contact", label: "Contact" },

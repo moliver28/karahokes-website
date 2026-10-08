@@ -118,7 +118,7 @@ function BreathingBox() {
   // The square is large while filling or holding full, small while
   // emptying or holding empty. No state needed for the scale itself.
   const big = phase.action === "grow" || phase.action === "hold-big";
-  const scale = breath.started || running ? (big ? 1.35 : 1) : 1;
+  const scale = breath.started || running ? (big ? 1.5 : 0.75) : 1;
 
   function handleToggle() {
     if (!running && !breath.started) {
@@ -254,23 +254,23 @@ export function Grounding() {
     <section
       id="grounding"
       aria-labelledby="grounding-heading"
-      className="py-20 md:py-28"
+      className="py-16 md:py-24"
     >
       <div className="mx-auto max-w-6xl px-5">
         <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-14">
           {/* Copy */}
           <Reveal>
             <div className="max-w-xl">
-              <span className="text-xs font-semibold uppercase tracking-[0.18em] text-primary">
+              <span className="text-xs font-semibold uppercase tracking-[0.18em] text-primary text-center lg:text-left">
                 Something to try right now
               </span>
               <h2
                 id="grounding-heading"
-                className="mt-3 font-serif text-3xl font-semibold leading-tight text-foreground text-balance sm:text-4xl"
+                className="mt-3 font-serif text-3xl font-semibold leading-tight text-foreground text-balance sm:text-4xl text-center lg:text-left"
               >
                 Feeling on edge? Start here.
               </h2>
-              <div className="mt-4 space-y-4 text-pretty text-base leading-relaxed text-muted-foreground">
+              <div className="mt-4 space-y-4 text-pretty text-base leading-relaxed text-muted-foreground text-center lg:text-left">
                 <p>
                   This is the first skill I teach most people who start with
                   me over video. A slow, even exhale is the clearest signal
@@ -296,8 +296,13 @@ export function Grounding() {
                   One honest note: breathing exercises don&apos;t replace
                   therapy, and they work best as practice, not rescue. If
                   you&apos;re in crisis, call or text{" "}
-                  <strong className="text-foreground">988</strong>. This tool
-                  is for the hard minutes in between.
+                  <a
+                    href="tel:988"
+                    className="underline-offset-4 hover:underline"
+                  >
+                    <strong className="text-foreground">988</strong>
+                  </a>
+                  . This tool is for the hard minutes in between.
                 </p>
               </div>
             </div>

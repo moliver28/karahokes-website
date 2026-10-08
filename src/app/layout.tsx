@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Geist, Geist_Mono, Fraunces } from "next/font/google";
+import { Geist, Geist_Mono, Source_Serif_4 } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
 import { SITE } from "@/lib/site";
@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-const fraunces = Fraunces({
+const sourceSerif = Source_Serif_4({
   variable: "--font-serif",
   subsets: ["latin"],
   display: "swap",
@@ -29,7 +29,7 @@ export const metadata: Metadata = {
     template: "%s · Kara Hokes, PhD",
   },
   description:
-    "Online trauma therapy with Kara Hokes, PhD, a clinical psychologist licensed in Washington State and PSYPACT certified. CPT, DBT, ACT, and CBT by secure video for veterans, survivors of sexual and domestic violence, and under-represented communities. Free 15-minute consultation; most major insurance accepted; $150 self-pay.",
+    "Online trauma therapy with Kara Hokes, PhD, a clinical psychologist licensed in Washington State and PSYPACT certified. CPT, DBT, ACT, PE, and CBT by secure video for veterans, survivors of sexual and domestic violence, and under-represented communities. Free 15-minute consultation; most major insurance accepted; $150 self-pay.",
   keywords: [
     "online therapy Washington State",
     "telehealth psychologist Tacoma",
@@ -43,6 +43,7 @@ export const metadata: Metadata = {
     "Dialectical Behavior Therapy",
     "Cognitive Processing Therapy",
     "Acceptance and Commitment Therapy",
+    "Prolonged Exposure Therapy",
     "culturally responsive therapy",
     "PSYPACT psychologist",
     "online psychologist Tacoma",
@@ -117,7 +118,7 @@ export default function RootLayout({
         <meta name="format-detection" content="telephone=no" />
       </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} ${fraunces.variable} antialiased bg-background text-foreground`}
+        className={`${geistSans.variable} ${geistMono.variable} ${sourceSerif.variable} antialiased bg-background text-foreground`}
       >
         {children}
         <Toaster />

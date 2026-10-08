@@ -14,7 +14,7 @@
 
 import { z } from "zod";
 
-const PRACTICE_PHONE_DISPLAY = "(253) 893-3585";
+const PRACTICE_PHONE_DISPLAY = "(360) 358-5174";
 
 const NOTIFY_FROM = { name: "Kara Hokes Website", email: "website@karahokes.com" };
 const NOTIFY_TO = "karahokes@gmail.com";
@@ -60,17 +60,21 @@ const ConsultSchema = z.object({
   preferredContact: z.enum(["email", "phone", "text"], {
     message: "Select a preferred contact method.",
   }),
-  availability: z.string().optional(),
-  source: z
-    .enum([
+  availability: z
+    .string()
+    .trim()
+    .min(1, "Please share a few days or times that could work."),
+  source: z.enum(
+    [
       "psychology-today",
       "search",
       "provider-referral",
       "insurance-directory",
       "social",
       "rather-not-say",
-    ])
-    .optional(),
+    ],
+    { message: "Please let me know how you found me." },
+  ),
   // Deliberately not a clinical field: it exists for scheduling logistics
   // only, and its copy asks visitors to keep health details out. See the
   // mirrored validation in src/components/consult-form.tsx.
@@ -79,6 +83,17 @@ const ConsultSchema = z.object({
   consent: z.literal(true, {
     message: "Please acknowledge the consent statement to continue.",
   }),
+}).superRefine((data, ctx) => {
+  if (
+    (data.preferredContact === "phone" || data.preferredContact === "text") &&
+    !data.phone?.trim()
+  ) {
+    ctx.addIssue({
+      code: "custom",
+      path: ["phone"],
+      message: "A phone number is needed so I can call or text you back.",
+    });
+  }
 });
 
 // The one Response constructor. Everything the Worker returns goes through

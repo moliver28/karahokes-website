@@ -1,13 +1,15 @@
 import {
   Globe2,
+  Handshake,
   HeartHandshake,
   Medal,
   Rainbow,
   Scale,
   ShieldPlus,
+  Stethoscope,
   type LucideIcon,
 } from "lucide-react";
-import { Card, CardContent } from "@/components/ui/card";
+import { Card } from "@/components/ui/card";
 import { Reveal, RevealGroup, RevealItem } from "@/components/reveal";
 import { SITE } from "@/lib/site";
 
@@ -29,8 +31,13 @@ const COMMUNITIES: Community[] = [
     icon: ShieldPlus,
   },
   {
+    title: "First responders and healthcare workers",
+    body: "The job trains you to stay switched on and push through. Off shift, that can show up as trouble sleeping, a hair-trigger alarm system, or grief nobody outside the work quite gets. You don't have to prove how bad it was; the weight of the work counts.",
+    icon: Stethoscope,
+  },
+  {
     title: "Survivors of domestic violence",
-    body: "For people rebuilding after violence or control in a relationship, including those still untangling from it. Together we work on safety, the beliefs that relationship left behind, and what you want next. I can coordinate with advocates and hotlines if that would help.",
+    body: "For people rebuilding after violence or control in a relationship, including those still untangling from it. Together we work on safety, the beliefs that relationship left behind, and what you want next.",
     icon: HeartHandshake,
   },
   {
@@ -48,12 +55,21 @@ const COMMUNITIES: Community[] = [
     body: "Racial-justice allied and culturally responsive, with respect for what your communities have carried. Immigrants, refugees, people of color, elders, and anyone whose experience keeps getting misread in a therapy room: you belong here.",
     icon: Globe2,
   },
-];
-
-const PROFILE_COMMUNITIES = [
-  "Queer allied",
-  "Racial justice allied",
-  "Immunocompromised & chronically ill",
+  {
+    title: "Queer allied",
+    body: "Allied, affirming care for queer and trans clients, in every part of the work.",
+    icon: Rainbow,
+  },
+  {
+    title: "Racial justice allied",
+    body: "Racial-justice allied: your experience of the world is part of the work, not a footnote.",
+    icon: Handshake,
+  },
+  {
+    title: "Immunocompromised & chronically ill",
+    body: "Care that doesn't ask you to leave chronic illness at the door, with pacing that follows your body.",
+    icon: ShieldPlus,
+  },
 ];
 
 export function Communities() {
@@ -61,7 +77,7 @@ export function Communities() {
     <section
       id="communities"
       aria-labelledby="communities-heading"
-      className="border-y border-border/60 bg-secondary/30 py-20 md:py-28"
+      className="border-y border-border/60 bg-secondary/30 py-16 md:py-24"
     >
       <div className="mx-auto max-w-6xl px-5">
         <Reveal>
@@ -76,9 +92,8 @@ export function Communities() {
               The communities this practice is built around.
             </h2>
             <p className="mt-4 text-pretty text-base leading-relaxed text-muted-foreground">
-              I see individuals and groups, ages teen to elder. Some
-              communities come to me again and again, so I built the practice
-              for them on purpose.
+              I see individuals ranging from late teen to elder. I built this
+              practice as a space for the things that often stay silent.
             </p>
           </div>
         </Reveal>
@@ -110,38 +125,18 @@ export function Communities() {
         </RevealGroup>
 
         <Reveal delay={0.1}>
-          <div className="mx-auto mt-10 flex max-w-3xl flex-col items-center gap-3 rounded-2xl border border-border/70 bg-card p-5 text-center">
+          <p className="mt-10 text-center text-sm text-muted-foreground">
+            Every group above is welcome to the same free{" "}
+            {SITE.consultMinutes}-minute consultation. If you don&apos;t see
+            yourself here,{" "}
             <a
-              href={SITE.psychologyToday}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-xs font-semibold uppercase tracking-[0.16em] text-muted-foreground transition-colors hover:text-foreground hover:underline underline-offset-4"
+              href="#contact"
+              className="font-medium text-primary underline-offset-4 hover:underline"
             >
-              Also listed on my Psychology Today profile
+              ask anyway
             </a>
-            <div className="flex flex-wrap items-center justify-center gap-2">
-              {PROFILE_COMMUNITIES.map((chip) => (
-                <span
-                  key={chip}
-                  className="rounded-full border border-primary/20 bg-primary/5 px-3 py-1 text-xs font-medium text-foreground"
-                >
-                  {chip}
-                </span>
-              ))}
-            </div>
-            <p className="text-xs leading-relaxed text-muted-foreground">
-              Every group above is welcome to the same free{" "}
-              {SITE.consultMinutes}-minute consultation. If you don&apos;t see
-              yourself here,{" "}
-              <a
-                href="#contact"
-                className="font-medium text-primary underline-offset-4 hover:underline"
-              >
-                ask anyway
-              </a>
-              .
-            </p>
-          </div>
+            .
+          </p>
         </Reveal>
       </div>
     </section>
