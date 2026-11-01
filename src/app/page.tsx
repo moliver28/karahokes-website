@@ -22,10 +22,14 @@ const SITE_URL = SITE.siteUrl;
 
 /**
  * Structured data for search engines: the practice (schema.org Psychologist,
- * a LocalBusiness/MedicalBusiness subtype) plus the FAQ so questions can be
- * eligible for rich results. Answers must mirror the rendered copy, so both
- * read from src/lib/faq-data.ts. The Psychology Today profile is listed as
- * sameAs so search engines can tie the two together.
+ * a LocalBusiness/MedicalBusiness subtype), the practitioner (schema.org
+ * Person, tied to the practice via worksFor), the website itself (WebSite,
+ * publisher → the Person), plus the FAQ so questions can be eligible for
+ * rich results. Nodes cross-reference each other by @id so search engines
+ * read one connected graph rather than disconnected blobs. Answers must
+ * mirror the rendered copy, so both read from src/lib/faq-data.ts. The
+ * Psychology Today profile is listed as sameAs so search engines can tie
+ * the two together.
  */
 const jsonLd = {
   "@context": "https://schema.org",
@@ -103,6 +107,29 @@ const jsonLd = {
         },
       ],
       sameAs: [SITE.psychologyToday],
+    },
+    {
+      // The practitioner as a Person, separate from the practice entity
+      // above: E-E-A-T signals answer "who is behind this site", and
+      // worksFor ties the Person back to the practice node.
+      "@type": "Person",
+      "@id": `${SITE_URL}/#person`,
+      name: SITE.shortName,
+      jobTitle: "Psychologist",
+      telephone: SITE.phoneJsonLd,
+      email: SITE.email,
+      url: SITE_URL,
+      worksFor: { "@id": `${SITE_URL}/#practice` },
+      sameAs: [SITE.psychologyToday],
+    },
+    {
+      // The site itself; publisher points at the Person node so the graph
+      // states who publishes it.
+      "@type": "WebSite",
+      "@id": `${SITE_URL}/#website`,
+      name: SITE.name,
+      url: SITE_URL,
+      publisher: { "@id": `${SITE_URL}/#person` },
     },
     {
       "@type": "FAQPage",
