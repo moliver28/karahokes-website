@@ -4,11 +4,10 @@ import { SITE } from "@/lib/site";
  * Cloudflare Web Analytics beacon token. The token is the public "JS beacon"
  * token from the Cloudflare dashboard (Web Analytics -> karahokes.com), and
  * it is public by design — it appears in the HTML of every page load, so it
- * is safe to ship in a static bundle. It ships empty as a placeholder; the
- * real token is pasted in before merge so placeholder builds never send
- * anything to Cloudflare.
+ * is safe to ship in a static bundle.
  */
-export const CLOUDFLARE_BEACON_TOKEN = "";
+export const CLOUDFLARE_BEACON_TOKEN: string =
+  "be3535b176254d898532afbf4b233cc5";
 
 /**
  * Hostnames the beacon is allowed to fire on. The canonical host is derived

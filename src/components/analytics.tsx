@@ -31,6 +31,7 @@ export function Analytics() {
     <Script
       id="cf-web-analytics"
       strategy="afterInteractive"
+      type="module"
       src="https://static.cloudflareinsights.com/beacon.min.js"
       data-cf-beacon={JSON.stringify({ token: CLOUDFLARE_BEACON_TOKEN })}
     />
