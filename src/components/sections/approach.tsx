@@ -75,7 +75,7 @@ export function Approach() {
                   <div className="absolute inset-0 bg-gradient-to-br from-[oklch(0.92_0.03_100)] to-[oklch(0.86_0.04_145)]" />
                   <div
                     className="absolute inset-0 bg-cover bg-center"
-                    style={{ backgroundImage: "url('/telehealth-landscape.png')" }}
+                    style={{ backgroundImage: "url('/telehealth-landscape.webp')" }}
                     role="img"
                     aria-label="Illustration of a video therapy setup: a laptop and headphones at a bright desk, evergreen forest outside the window"
                   />

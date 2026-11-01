@@ -148,7 +148,7 @@ function HeroImage() {
       {/* Background image via CSS, degrades gracefully to gradient if missing */}
       <div
         className="absolute inset-0 opacity-90 bg-cover bg-center"
-        style={{ backgroundImage: "url('/hero-landscape.png')" }}
+        style={{ backgroundImage: "url('/hero-landscape.webp')" }}
       />
       {/* Cream wash on the left so headline text stays readable; image shows through on the right */}
       <div className="absolute inset-0 bg-gradient-to-r from-background via-background/80 to-transparent md:via-background/55" />
