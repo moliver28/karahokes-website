@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono, Source_Serif_4 } from "next/font/google";
 import "./globals.css";
+import { Analytics } from "@/components/analytics";
 import { Toaster } from "@/components/ui/toaster";
 import { SITE } from "@/lib/site";
 
@@ -122,6 +123,9 @@ export default function RootLayout({
       >
         {children}
         <Toaster />
+        {/* Production-only Cloudflare Web Analytics; renders nothing on
+            localhost, in e2e, or while the beacon token is empty. */}
+        <Analytics />
       </body>
     </html>
   );
