@@ -1,7 +1,6 @@
 import Image from "next/image";
 import { ArrowRight, LifeBuoy, Video } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Reveal } from "@/components/reveal";
 import { SITE } from "@/lib/site";
 
 export function Hero() {
@@ -18,7 +17,11 @@ export function Hero() {
           {/* A face before any copy: for someone deciding whether to trust a
               stranger with hard things, the photo is the first answer. The
               name is adjacent text, so the image is decorative to readers. */}
-          <Reveal>
+          {/* Above-fold hero content animates with CSS only (.hero-fade-up in
+              globals.css), so the h1 paints without JavaScript — no-JS
+              visitors and crawlers see it, and prefers-reduced-motion skips
+              the motion entirely. Delays mirror the old reveal stagger. */}
+          <div className="hero-fade-up">
             <div className="flex items-center gap-3.5 justify-center lg:justify-start">
               <span className="relative size-14 shrink-0 overflow-hidden rounded-full ring-2 ring-background shadow-md shadow-primary/15">
                 <Image
@@ -39,16 +42,19 @@ export function Hero() {
                 </span>
               </span>
             </div>
-          </Reveal>
+          </div>
 
-          <Reveal delay={0.08}>
+          <div className="hero-fade-up" style={{ animationDelay: "0.08s" }}>
             <span className="mt-6 inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/5 px-3.5 py-1.5 text-xs font-medium uppercase tracking-[0.14em] text-primary">
               <Video className="size-3.5" aria-hidden="true" />
               Online-only practice · {SITE.licenseShort}
             </span>
-          </Reveal>
+          </div>
 
-          <Reveal delay={0.16}>
+          <div
+            className="hero-fade-up"
+            style={{ animationDelay: "0.16s" }}
+          >
             <h1
               id="hero-heading"
               className="mt-6 font-serif text-4xl font-semibold leading-[1.08] tracking-tight text-foreground text-balance sm:text-5xl lg:text-6xl"
@@ -56,9 +62,12 @@ export function Hero() {
               When each day feels like a roller coaster, therapy can help you
               get off the ride.
             </h1>
-          </Reveal>
+          </div>
 
-          <Reveal delay={0.24}>
+          <div
+            className="hero-fade-up"
+            style={{ animationDelay: "0.24s" }}
+          >
             <p className="mt-6 max-w-2xl text-lg leading-relaxed text-muted-foreground text-balance">
               I’m Dr. Kara Hokes, a licensed psychologist specializing in
               evidence-based care for trauma and emotion dysregulation.
@@ -67,9 +76,12 @@ export function Hero() {
               story. Evidence-based does not have to mean cold. I bring
               curiosity, warmth, and focused attention to every session.
             </p>
-          </Reveal>
+          </div>
 
-          <Reveal delay={0.32}>
+          <div
+            className="hero-fade-up"
+            style={{ animationDelay: "0.32s" }}
+          >
             <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
               <Button
                 asChild
@@ -93,22 +105,28 @@ export function Hero() {
                 <a href="#communities">See who I work with</a>
               </Button>
             </div>
-          </Reveal>
+          </div>
 
-          <Reveal delay={0.4}>
+          <div
+            className="hero-fade-up"
+            style={{ animationDelay: "0.4s" }}
+          >
             <p className="mt-6 flex items-center gap-2 text-sm text-muted-foreground justify-center lg:justify-start">
               <Video className="size-4 shrink-0 text-primary/80" aria-hidden="true" />
               Most major insurance accepted · $150 per session with a free
               15-minute intro call · Secure video across Washington State and
               PSYPACT states
             </p>
-          </Reveal>
+          </div>
 
           <p className="mt-2.5 text-xs text-muted-foreground">Also listed on my{" "}<a href={SITE.psychologyToday} target="_blank" rel="noopener noreferrer" className="font-medium text-primary underline-offset-4 hover:underline">Psychology Today</a> profile.</p>
 
           {/* The two things an anxious visitor scans for most (cost and what
               to do if tonight is the hard night) now sit above the fold. */}
-          <Reveal delay={0.48}>
+          <div
+            className="hero-fade-up"
+            style={{ animationDelay: "0.48s" }}
+          >
             <p className="mt-2.5 flex items-start gap-2 text-xs leading-relaxed text-muted-foreground justify-center lg:justify-start">
               <LifeBuoy
                 className="mt-0.5 size-3.5 shrink-0 text-destructive/80"
@@ -126,7 +144,7 @@ export function Hero() {
                 clock.
               </span>
             </p>
-          </Reveal>
+          </div>
         </div>
       </div>
     </section>

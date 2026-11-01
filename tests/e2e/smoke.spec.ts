@@ -168,6 +168,15 @@ test("t7: practice phone is visible and crisis numbers are real links", async ({
 });
 
 test("t8: homepage passes axe WCAG 2.0/2.1 A and AA", async ({ page }) => {
+  // The hero's CSS entrance fade-up (globals.css .hero-fade-up) leaves text
+  // mid-opacity for its first ~1s, and axe samples BLENDED colors on
+  // partially transparent elements, producing false color-contrast failures
+  // for the resting state. Disable animations before scanning: axe then
+  // measures the final (reduced-motion-equivalent) presentation, which is
+  // the state the WCAG contrast ratios actually apply to.
+  await page.addStyleTag({
+    content: "*, *::before, *::after { animation: none !important; }",
+  });
   const results = await new AxeBuilder({ page })
     .withTags(["wcag2a", "wcag2aa", "wcag21a", "wcag21aa"])
     .analyze();

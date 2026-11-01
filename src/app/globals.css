@@ -203,6 +203,33 @@
   }
 }
 
+/* Hero fade-up: CSS-only so the LCP element (hero h1) paints without any
+   JavaScript — no-JS visitors and crawlers get the headline from the first
+   paint, which framer-motion's reveal (opacity: 0 until hydration) cannot
+   do. Timing mirrors the below-fold Reveal (0.6s, same cubic-bezier) and
+   `both` fill-mode holds the from-state during staggered delays. Reduced-
+   motion visitors skip the animation entirely: content static and visible. */
+@keyframes hero-fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.hero-fade-up {
+  animation: hero-fade-up 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-fade-up {
+    animation: none;
+  }
+}
+
 /* Print layout: people in unsafe situations are often told to keep a printed
    copy of crisis resources somewhere safe, so printing (or saving as PDF)
    produces exactly one clean sheet: the crisis numbers and the practice's
