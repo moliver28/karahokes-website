@@ -48,6 +48,6 @@ export const SITE = {
     "https://www.psychologytoday.com/us/therapists/kara-hokes-tacoma-wa/1797162",
   // Practice-provided photographs (supplied directly by the client, so they
   // are the approved profile pictures of record).
-  portrait: "/kara-hokes-medium.jpeg",
-  avatar: "/kara-hokes-small.jpeg",
+  portrait: "/kara-hokes-medium.webp",
+  avatar: "/kara-hokes-small.webp",
 } as const;

@@ -15,25 +15,25 @@ const BOOKS: Book[] = [
     title: "The Body Keeps the Score",
     author: "Bessel van der Kolk",
     note: "The classic on how trauma lives in the body. Dense in places, and worth the effort.",
-    cover: "/book-body-keeps-score.png",
+    cover: "/book-body-keeps-score.webp",
   },
   {
     title: "Transforming the Living Legacy of Trauma",
     author: "Janina Fisher",
     note: "A workbook, not a lecture. Gentle exercises for the days when therapy feels like too much.",
-    cover: "/book-living-legacy.png",
+    cover: "/book-living-legacy.webp",
   },
   {
     title: "What My Bones Know",
     author: "Stephanie Foo",
     note: "A memoir of complex PTSD. Clients tell me it's the first time they saw themselves on the page.",
-    cover: "/book-what-my-bones-know.png",
+    cover: "/book-what-my-bones-know.webp",
   },
   {
     title: "It Didn't Start with You",
     author: "Mark Wolynn",
     note: "On how family pain echoes forward. I suggest it when the history predates you.",
-    cover: "/book-didnt-start-with-you.png",
+    cover: "/book-didnt-start-with-you.webp",
   },
 ];
 

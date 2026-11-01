@@ -110,7 +110,7 @@ export default function RootLayout({
         <link
           rel="preload"
           as="image"
-          href="/hero-landscape.png"
+          href="/hero-landscape.webp"
           fetchPriority="high"
         />
         {/* A page full of phone numbers otherwise gets iOS's auto-detected
